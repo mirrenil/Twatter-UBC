@@ -14,11 +14,6 @@ users.push(user);
 
 /** server for users */
 
-const app = express();
-const PORT = 3000;
-app.use("/", express.static("public"));
-app.use(express.json());
-
 /** Setup secure cookie */
 app.use(
   cookieSession({
