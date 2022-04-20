@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
-import Header from './Header';
-import Layout from './Layout';
+import Layout from './components/Layout';
+import StartPage from './/components/pages/StartPage';
 
 const App = () => {
   return (
