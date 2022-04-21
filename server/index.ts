@@ -10,6 +10,6 @@ app.use("/", userRouter);
 
 app.use("/", express.static("public"));
 
-app.listen(PORT, () =>
-  console.log(`App is running on porrst: http://localhost:${PORT}.`)
+app.listen(port, () =>
+  console.log(`App is running on porrst: http://localhost:${port}.`)
 );
