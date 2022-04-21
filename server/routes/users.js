@@ -15,6 +15,8 @@ let user = {
 users.push(user);
 
 /** server for users */
+const app = express();
+const PORT = 3000;
 
 /** Setup secure cookie */
 router.use(
