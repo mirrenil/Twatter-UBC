@@ -1,0 +1,33 @@
+GET http://localhost:3001/user
+
+###
+
+GET http://localhost:3001/users
+
+###
+
+POST http://localhost:3001/users/register
+Content-Type: application/json
+    
+{
+    "username": "granprsn",
+    "password": "123",
+    "email": "goranpersson@myspace.com",
+    "admin": false
+}
+
+###
+
+PUT http://localhost:3001/users/granprsn
+Content-Type: application/json
+    
+    {
+    "username": "Göran",
+    "password": "123",
+    "email": "goranpersson@myspace.com",
+    "admin": false
+    }
+
+###
+
+DELETE http://localhost:3001/users/granprsn
