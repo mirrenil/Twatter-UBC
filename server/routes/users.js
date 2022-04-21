@@ -2,6 +2,8 @@ import express from "express";
 import cookieSession from "cookie-session";
 import bcrypt from "bcrypt";
 
+export const router = express.Router();
+
 /** Mocked data */
 let users = [];
 let user = {
@@ -17,30 +19,30 @@ const app = express();
 const PORT = 3000;
 
 /** Setup secure cookie */
-app.use(
+router.use(
   cookieSession({
     name: "session",
     secret: "k3y",
     secure: false,
-    maxage: 1000 * 60,
+    maxAge: 1000 * 60,
     httpOnly: true,
   })
 );
 
 /** ----GET----- */
 
-app.get("/users", (req, res) => {
+router.get("/users", (req, res) => {
   res.status(200).json(users);
 });
 
-app.get("users/:username", (req, res) => {
+router.get("users/:username", (req, res) => {
   const foundUser = users.find((user) => req.params.username === user.username);
   res.status(200).json(foundUser);
 });
 
 /** ----POST----- */
 
-app.post("/users/login", async (req, res) => {
+router.post("/users/login", async (req, res) => {
   const { name, password } = req.body;
   const foundUser = users.find((user) => user.name === name);
 
@@ -53,13 +55,13 @@ app.post("/users/login", async (req, res) => {
   }
 
   /** Creates session */
-  req.session.username = user.name;
+  req.session.username = user.username;
   req.session.role = "admin";
 
   res.status(200).json(null);
 });
 
-app.post("/register", async (req, res) => {
+router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
 
   const foundExistingUserName = users.find((user) => user.name === name);
@@ -85,7 +87,7 @@ app.post("/register", async (req, res) => {
 
 /** ---- PUT ----- */
 
-app.put("/users/:id", (req, res) => {
+router.put("/users/:id", (req, res) => {
   const foundUser = users.find((user) => req.params.id === user.userId);
 
   if (!foundUser) {
@@ -107,10 +109,6 @@ app.put("/users/:id", (req, res) => {
 
 /** ---- DELETE ----- */
 
-app.delete("/users/:id", (req, res) => {});
+router.delete("/users/:id", (req, res) => {});
 
-/** ---- LISTEN ----- */
-
-app.listen(PORT, () => {
-  console.log("runnin on port: " + PORT);
-});
+export default router;
