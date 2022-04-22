@@ -2,7 +2,6 @@ import userModel from "./../models/user.model.js";
 import express from "express";
 
 export const router = express.Router();
-
 router.use(express.json());
 
 /** ----GET----- */

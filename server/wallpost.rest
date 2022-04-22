@@ -1,4 +1,32 @@
 
-GET http://localhost:3000/wallposts
+GET http://localhost:3001/wallposts/Grandepurrrr
 
 ###
+
+GET http://localhost:3001/wallposts
+
+###
+
+POST http://localhost:3001/wallposts/newpost
+Content-Type: application/json
+
+{
+    "username": "Kalaspuff",
+    "date": "",
+    "body": "Tjo bloggen! Detta är mitt första inlägg, glöm inte att följa mig på youtube!!"
+}
+
+###
+
+PUT http://localhost:3001/wallposts/Kalaspuff
+Content-Type: application/json
+
+    {
+    "user": "Lolli",
+    "date": "12/10/22",
+    "body": "Tjo bloggen! Detta är mitt första inlägg, glöm inte att följa mig på youtube!!"
+}
+
+###
+
+DELETE http://localhost:3001/wallposts/granprsn
