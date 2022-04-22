@@ -1,4 +1,4 @@
-GET http://localhost:3001/user
+GET http://localhost:3001/users/zlatan
 
 ###
 
@@ -10,10 +10,10 @@ POST http://localhost:3001/users/register
 Content-Type: application/json
     
 {
-    "username": "granprsn",
+    "username": "zlatan",
     "password": "123",
-    "email": "goranpersson@myspace.com",
-    "admin": false
+    "email": "theoneandonly@myspace.com",
+    "admin": true
 }
 
 ###
