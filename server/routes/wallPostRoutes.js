@@ -1,13 +1,14 @@
 import wallPostModel from "./../models/post.model.js";
-import Express from 'express'
+import express from "express";
 
-export const router = Express.Router();
+export const router = express.Router();
 
+router.use(express.json());
 /** ----GET----- */
 
-router.get("/wallposts", (req, res) => {
+router.get("/wallposts", async (req, res) => {
   try {
-    const wallPosts = wallPostModel.find({});
+    const wallPosts = await wallPostModel.find({});
     res.json(wallPosts);
   } catch (err) {
     console.log(err);
@@ -15,9 +16,9 @@ router.get("/wallposts", (req, res) => {
   }
 });
 
-router.get("/wallposts/:id", (req, res) => {
+router.get("/wallposts/:user", async (req, res) => {
   try {
-    const wallPost = wallPostModel.findOne({});
+    const wallPost = await wallPostModel.findOne({ user: req.params.user });
     res.json(wallPost);
   } catch (err) {
     console.log(err);
@@ -27,25 +28,57 @@ router.get("/wallposts/:id", (req, res) => {
 
 /** ----POST----- */
 
-router.post("/", (req, res) => {
-  const date = toString(new Date());
+router.post("/wallposts/newpost", async (req, res) => {
   try {
-    const newWallPost = new wallPostModel({
+    const newWallPost = await new wallPostModel({
       user: req.body.username,
-      date: date,
+      date: new Date(),
+      body: req.body.body,
     });
-    console.log(newWallPost)
+    console.log(newWallPost);
     await newWallPost.save();
-    res.json(newWallPost)
+    res.json(newWallPost);
   } catch (err) {
     if (err.code === 404) {
-        res.send("Something went wrong");
-        return
+      res.send("Something went wrong");
+      return;
     }
-    res.send('an error has occurd')
+    res.send("an error has occurd");
   }
 });
 
-router.put("/", (req, res) => {});
+router.put("/wallposts/:user", async (req, res) => {
+  try {
+    const { user } = req.params;
+    const wallPost = await wallPostModel.findOneAndUpdate(user, req.body);
+    wallPost.save();
+    res.json({
+      old: wallPost,
+      new: req.body,
+    });
+  } catch (err) {
+    if (err.code === 11000) {
+      res.send("Wall post already exists");
+      return;
+    }
+    res.send("An error occured");
+  }
+});
 
-router.delete("/", (req, res) => {});
+router.delete("/wallposts/:user", async (req, res) => {
+  try {
+    const { user } = req.params;
+    const removedWallPost = await wallPostModel.findOneAndRemove({
+      user: req.params.user,
+    });
+    if (!removedWallPost) {
+      res.send("Wall post not found");
+      return;
+    }
+    res.json(removedWallPost);
+  } catch (err) {
+    res.send("An error occured");
+  }
+});
+
+export default router;

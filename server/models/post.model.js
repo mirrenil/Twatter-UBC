@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
-const WallPostSchema = mongoose.Schema({
+const wallPostSchema = new mongoose.Schema({
   user: {
     required: true,
     type: String,
   },
   date: {
     required: true,
-    type: String,
+    type: Date,
   },
   body: {
     required: true,
@@ -15,4 +15,4 @@ const WallPostSchema = mongoose.Schema({
   },
 });
 
-export default mongoose.model("wallPost", userSchema);
+export default mongoose.model("wallPost", wallPostSchema);

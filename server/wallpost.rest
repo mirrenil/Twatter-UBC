@@ -1,4 +1,31 @@
-
-GET http://localhost:3000/wallposts
+GET http://localhost:3001/wallposts/david
 
 ###
+
+GET http://localhost:3001/wallposts
+
+###
+
+POST http://localhost:3001/wallposts/newpost
+Content-Type: application/json
+    
+    {
+    "username": "david",
+    "date": "",
+    "body": "Lorem Ipsum hello world "
+}
+
+###
+
+PUT http://localhost:3001/wallposts/david
+Content-Type: application/json
+    
+    {
+    "username": "david jensen",
+    "date": "",
+    "body": "Lorem Ipsum hello world "
+}
+
+###
+
+DELETE http://localhost:3001/wallposts/zlatan

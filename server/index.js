@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 import cookieSession from "cookie-session";
 import bcrypt from "bcrypt";
 import userRouter from "./routes/userRoutes.js";
+import wallPostRouter from "./routes/wallPostRoutes.js";
 
 mongoose.connect(
-  "mongodb://localhost:27017/usersDB",
+  "mongodb://localhost:27017/twatterDB",
   { useNewUrlParser: true },
   (err) => {
     if (err) {
@@ -21,6 +22,7 @@ const PORT = 3001;
 app.use(express.json());
 
 app.use("/", userRouter);
+app.use("/", wallPostRouter);
 
 /** Setup secure cookie */
 app.use(
