@@ -1,14 +1,27 @@
 import react, { CSSProperties } from 'react';
 import { Icon } from '@iconify/react';
 
+interface Props {
+    setEdit: () => void;
+}
 
 
 
-const WallPostButtons = () => {
+const WallPostButtons = ({setEdit}: Props) => {
+
+    const handleOnEditClick = () => {
+        setEdit();
+    }
+
     return (
         <div style={rootstyle}>
-            <Icon icon="ci:edit" style={iconStyle} />
-            <Icon icon="fluent:delete-48-filled" style={iconStyle} />
+            <button onClick={handleOnEditClick}>
+                <Icon icon="ci:edit" style={iconStyle} />
+            </button>
+            <button>
+                <Icon icon="fluent:delete-48-filled" style={iconStyle} />
+            </button>
+            
         </div>
     )
 }

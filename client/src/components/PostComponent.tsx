@@ -6,6 +6,7 @@ import WallPostButtons from './WallPostButtons';
 
 export const PostComponent = () => {
   // const [wallPosts, setWallPosts] = useState([]);
+  const [isEdit, setIsEdit] = useState(false);
 
   // const fetchWallPostsData = () => {
   //   axios.get('http://localhost:3001/wallposts')
@@ -28,13 +29,16 @@ export const PostComponent = () => {
 // useEffect(() => {
 //   fetchWallPostsData();
 // })
-
+  const handleEditState = () => {
+    setIsEdit(true);
+    console.log(isEdit)
+  }
 
   return (
     <div style={rootstyle}>
       <div style={postHeaderStyle}>
         <h6 style={{fontSize: "2rem", margin: 0}}>Author</h6>
-        <p style={{}}>00:00:00</p>
+        <p style={{}}>23-04-22</p>
       </div>
       <div>
         Lorem Ipsum Dolor Sit amet Knasiga Kodare Is Coding Wow Lorem Ipsum
@@ -42,7 +46,7 @@ export const PostComponent = () => {
         Knasiga Kodare Is Coding Wow Lorem Ipsum Dolor Sit amet Knasiga Kodare
         Is
       </div>
-      <WallPostButtons />
+      <WallPostButtons setEdit={handleEditState}/>
     </div>
   );
 };
