@@ -1,14 +1,18 @@
 import wallPostModel from "./../models/post.model.js";
-import express from "express";
+import Express from "express";
 
-export const router = express.Router();
+export const router = Express.Router();
+router.use(Express.json());
 
-router.use(express.json());
-/** ----GET----- */
+/ ----GET----- */
+
 
 router.get("/wallposts", async (req, res) => {
   try {
     const wallPosts = await wallPostModel.find({});
+
+    console.log(wallPosts)
+
     res.json(wallPosts);
   } catch (err) {
     console.log(err);
@@ -18,6 +22,7 @@ router.get("/wallposts", async (req, res) => {
 
 router.get("/wallposts/:user", async (req, res) => {
   try {
+
     const wallPost = await wallPostModel.findOne({ user: req.params.user });
     res.json(wallPost);
   } catch (err) {
@@ -26,9 +31,10 @@ router.get("/wallposts/:user", async (req, res) => {
   }
 });
 
-/** ----POST----- */
+/ ----POST----- */
 
 router.post("/wallposts/newpost", async (req, res) => {
+
   try {
     const newWallPost = await new wallPostModel({
       user: req.body.username,
@@ -46,6 +52,7 @@ router.post("/wallposts/newpost", async (req, res) => {
     res.send("an error has occurd");
   }
 });
+
 
 router.put("/wallposts/:user", async (req, res) => {
   try {
@@ -68,6 +75,7 @@ router.put("/wallposts/:user", async (req, res) => {
 router.delete("/wallposts/:user", async (req, res) => {
   try {
     const { user } = req.params;
+
     const removedWallPost = await wallPostModel.findOneAndRemove({
       user: req.params.user,
     });

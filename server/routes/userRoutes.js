@@ -5,7 +5,6 @@ import cookieSession from "cookie-session";
 import { v4 as uuid } from "uuid";
 
 export const router = express.Router();
-
 router.use(express.json());
 
 /** Setup secure cookie */

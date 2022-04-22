@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cookieSession from "cookie-session";
 import bcrypt from "bcrypt";
 import userRouter from "./routes/userRoutes.js";
+
 import wallPostRouter from "./routes/wallPostRoutes.js";
 
 mongoose.connect(

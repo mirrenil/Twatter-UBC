@@ -1,4 +1,6 @@
-GET http://localhost:3001/users/zlatan
+
+GET http://localhost:3001/users
+
 
 ### FIND ALL USERS BELOW
 

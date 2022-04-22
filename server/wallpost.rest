@@ -1,5 +1,6 @@
 GET http://localhost:3001/wallposts/david
 
+
 ###
 
 GET http://localhost:3001/wallposts
@@ -8,24 +9,29 @@ GET http://localhost:3001/wallposts
 
 POST http://localhost:3001/wallposts/newpost
 Content-Type: application/json
-    
-    {
-    "username": "david",
+
+{
+    "username": "Kalaspuff",
     "date": "",
-    "body": "Lorem Ipsum hello world "
+    "body": "Tjo bloggen! Detta är mitt första inlägg, glöm inte att följa mig på youtube!!"
+
 }
 
 ###
 
-PUT http://localhost:3001/wallposts/david
+
+PUT http://localhost:3001/wallposts/Kalaspuff
 Content-Type: application/json
-    
+
     {
-    "username": "david jensen",
-    "date": "",
-    "body": "Lorem Ipsum hello world "
+    "user": "Lolli",
+    "date": "12/10/22",
+    "body": "Tjo bloggen! Detta är mitt första inlägg, glöm inte att följa mig på youtube!!"
+
 }
 
 ###
 
-DELETE http://localhost:3001/wallposts/zlatan
+
+DELETE http://localhost:3001/wallposts/granprsn
+

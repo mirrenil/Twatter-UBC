@@ -4,7 +4,11 @@ body {
     background-color: rgb(139,0,174);
     background: linear-gradient(90deg, rgba(139,0,174,0.836594012605042) 0%, rgba(255,92,0,1) 100%);
     width: "100%";
-    margin: 0 auto;
+}
+
+#root {
+    margin: auto;
+    border: 3px solid yellow;
 }
 
 h1 {
