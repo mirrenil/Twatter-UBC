@@ -24,17 +24,6 @@ app.use(express.json());
 app.use("/", userRouter);
 app.use("/", wallPostRouter);
 
-/** Setup secure cookie */
-app.use(
-  cookieSession({
-    name: "session",
-    secret: "k3y",
-    secure: false,
-    maxAge: 1000 * 60,
-    httpOnly: true,
-  })
-);
-
 app.listen(PORT, () =>
   console.log(`App is running on port: http://localhost:${PORT}.`)
 );
