@@ -1,32 +1,33 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
 import axios from 'axios';
+import WallPostButtons from './WallPostButtons';
 
 
 
 export const PostComponent = () => {
-  const [wallPosts, setWallPosts] = useState([]);
+  // const [wallPosts, setWallPosts] = useState([]);
 
-  const fetchWallPostsData = () => {
-    axios.get('http://localhost:3001/wallposts')
-    .then((response) => {
-      console.log('here');
-      // const data = response.data;
-      // setWallPosts(data);
-      // console.log(data);
-      // console.log(wallPosts);
-      // console.log('Data has been retrieved');
-    }).catch((err) => {
-      console.log(err);
-    })
-  }
-
-
+  // const fetchWallPostsData = () => {
+  //   axios.get('http://localhost:3001/wallposts')
+  //   .then((response) => {
+  //     console.log('here');
+  //     // const data = response.data;
+  //     // setWallPosts(data);
+  //     // console.log(data);
+  //     // console.log(wallPosts);
+  //     // console.log('Data has been retrieved');
+  //   }).catch((err) => {
+  //     console.log(err);
+  //   })
+  // }
 
 
 
-useEffect(() => {
-  fetchWallPostsData();
-})
+
+
+// useEffect(() => {
+//   fetchWallPostsData();
+// })
 
 
   return (
@@ -41,6 +42,7 @@ useEffect(() => {
         Knasiga Kodare Is Coding Wow Lorem Ipsum Dolor Sit amet Knasiga Kodare
         Is
       </div>
+      <WallPostButtons />
     </div>
   );
 };
@@ -50,11 +52,16 @@ const rootstyle: CSSProperties = {
   height: '20rem',
   width: '40rem',
   borderRadius: '5px 22px 50px 22px',
-  margin: "auto"
+  margin: "auto",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "space-around"
 };
 
 const postHeaderStyle: CSSProperties = {
     display: "flex",
     justifyContent: "space-around",
+    width: "100%"
 
 }
