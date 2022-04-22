@@ -3,14 +3,12 @@ import mongoose from "mongoose";
 import cookieSession from "cookie-session";
 import bcrypt from "bcrypt";
 import userRouter from "./routes/userRoutes.js";
-import wallPostRouter from './routes/wallPostRoutes.js'
+
+import wallPostRouter from "./routes/wallPostRoutes.js";
 
 mongoose.connect(
-  "mongodb://localhost:27017/twatter",
-
-  { useNewUrlParser: true,
-
-   },
+  "mongodb://localhost:27017/twatterDB",
+  { useNewUrlParser: true },
   (err) => {
     if (err) {
       console.log("Error connecting to database");

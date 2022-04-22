@@ -6,10 +6,13 @@ router.use(Express.json());
 
 / ----GET----- */
 
+
 router.get("/wallposts", async (req, res) => {
   try {
     const wallPosts = await wallPostModel.find({});
+
     console.log(wallPosts)
+
     res.json(wallPosts);
   } catch (err) {
     console.log(err);
@@ -19,7 +22,8 @@ router.get("/wallposts", async (req, res) => {
 
 router.get("/wallposts/:user", async (req, res) => {
   try {
-    const wallPost = await wallPostModel.findOne({ user: req.params.user});
+
+    const wallPost = await wallPostModel.findOne({ user: req.params.user });
     res.json(wallPost);
   } catch (err) {
     console.log(err);
@@ -30,9 +34,9 @@ router.get("/wallposts/:user", async (req, res) => {
 / ----POST----- */
 
 router.post("/wallposts/newpost", async (req, res) => {
- 
+
   try {
-    const newWallPost = new wallPostModel({
+    const newWallPost = await new wallPostModel({
       user: req.body.username,
       date: new Date(),
       body: req.body.body,
@@ -49,10 +53,11 @@ router.post("/wallposts/newpost", async (req, res) => {
   }
 });
 
-router.put("/wallpost/:id", async (req, res) => {
+
+router.put("/wallposts/:user", async (req, res) => {
   try {
-    const { id } = req.params;
-    const wallPost = await wallPostModel.findByIdAndUpdate({});
+    const { user } = req.params;
+    const wallPost = await wallPostModel.findOneAndUpdate(user, req.body);
     wallPost.save();
     res.json({
       old: wallPost,
@@ -70,7 +75,10 @@ router.put("/wallpost/:id", async (req, res) => {
 router.delete("/wallposts/:user", async (req, res) => {
   try {
     const { user } = req.params;
-    const removedWallPost = await wallPostModel.findOneAndRemove(user);
+
+    const removedWallPost = await wallPostModel.findOneAndRemove({
+      user: req.params.user,
+    });
     if (!removedWallPost) {
       res.send("Wall post not found");
       return;
