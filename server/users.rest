@@ -1,19 +1,30 @@
 GET http://localhost:3001/user
 
-###
+### FIND ALL USERS BELOW
 
 GET http://localhost:3001/users
 
-###
+### POST FOR SIGN UP BELOW
 
 POST http://localhost:3001/users/register
 Content-Type: application/json
     
 {
-    "username": "granprsn",
+    "username": "zlatan",
     "password": "123",
-    "email": "goranpersson@myspace.com",
-    "admin": false
+    "email": "goranpersson@myspace.com"
+}
+
+### POST FOR LOG IN UP BELOW
+
+
+POST http://localhost:3001/login
+Content-Type: application/json
+    
+{
+    "username": "zlatan",
+    "password": "123",
+    "email": "goranpersson@myspace.com"
 }
 
 ###
@@ -24,10 +35,14 @@ Content-Type: application/json
     {
     "username": "Göran",
     "password": "123",
-    "email": "goranpersson@myspace.com",
-    "admin": false
+    "email": "goranpersson@myspace.com"
     }
 
-###
+### DELETE A USER BELOW
 
 DELETE http://localhost:3001/users/granprsn
+
+### SIGN OUT
+
+DELETE http://localhost:3001/logout
+
