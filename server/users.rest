@@ -1,4 +1,4 @@
-GET http://localhost:3001/user
+GET http://localhost:3001/users/zlatan
 
 ### FIND ALL USERS BELOW
 
@@ -11,6 +11,7 @@ Content-Type: application/json
     
 {
     "username": "zlatan",
+
     "password": "123",
     "email": "goranpersson@myspace.com"
 }
@@ -25,6 +26,7 @@ Content-Type: application/json
     "username": "zlatan",
     "password": "123",
     "email": "goranpersson@myspace.com"
+
 }
 
 ###
