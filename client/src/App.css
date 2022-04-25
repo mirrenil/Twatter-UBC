@@ -1,0 +1,80 @@
+.container {
+    width: 70%;
+    height: 70vh;
+    display: flex;
+    border-radius: 5px;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    background-color: #fff;
+}
+
+.app-wrapper {
+    min-width: 350px;
+    min-height: 650px;
+    padding: 30px;
+    box-sizing: border-box;
+    border-bottom: 5px;
+}
+
+
+.name,
+.email,
+.password {
+    margin: 20px;
+    font-size: 16px;
+}
+
+.password {
+    margin-bottom: 40px;
+}
+
+input {
+    height: 32px;
+    font-size: 20px;
+    outline: none;
+    width: 100%;
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-style: 2px solid #333;
+    margin-bottom: 10px;
+}
+
+.error {
+    color: red;
+    margin: 0;
+    text-align: center;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+}
+
+.submit {
+    display: flex;
+    justify-content: center;
+    width: 60px;
+    font-size: 20px;
+    border-radius: 25px;
+    padding: 20px 60px;
+    color: grey;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    margin: auto;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+button:active {
+    transform: translateY(2px);
+}
+
+.form-success {
+    display: flex;
+    justify-content: center;
+    margin-top: 250px;
+    min-width: 370px;
+}
