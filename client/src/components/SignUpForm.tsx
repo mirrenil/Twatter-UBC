@@ -6,7 +6,7 @@ const SignUpForm = ({submitForm}) => {
   return (
     <div className='container'>
         <h2>Become a twat!</h2>
-        <form>
+        <form onSubmit={handleFormSubmit}>
             <div className='name'>
                 <input placeholder='username' type="text" name="username" value={values.username} onChange={handleChange}/>
                 {errors.username && <p className='error'>{errors.username}</p>}
@@ -20,7 +20,7 @@ const SignUpForm = ({submitForm}) => {
                  {errors.password && <p className='error'>{errors.password}</p>}
             </div>
             <div className='btn'>
-                <button onClick={handleFormSubmit}>Sign up</button>
+                <button type="submit">Sign up</button>
             </div>
         </form>
     </div>
