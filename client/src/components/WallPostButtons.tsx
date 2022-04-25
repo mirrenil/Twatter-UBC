@@ -15,10 +15,10 @@ const WallPostButtons = ({setEdit}: Props) => {
 
     return (
         <div style={rootstyle}>
-            <button onClick={handleOnEditClick}>
+            <button style={buttonStyle} onClick={handleOnEditClick}>
                 <Icon icon="ci:edit" style={iconStyle} />
             </button>
-            <button>
+            <button style={buttonStyle}>
                 <Icon icon="fluent:delete-48-filled" style={iconStyle} />
             </button>
             
@@ -26,13 +26,16 @@ const WallPostButtons = ({setEdit}: Props) => {
     )
 }
 
-const iconStyle: CSSProperties = {
-    fontSize: "2rem"
-}
-
 const rootstyle: CSSProperties = {
     display: "flex",
-    
+}
+
+const iconStyle: CSSProperties = {
+    fontSize: "1.7rem",
+}
+const buttonStyle: CSSProperties = {
+    border: 'none',
+    backgroundColor: 'transparent'
 }
 
 export default WallPostButtons;
