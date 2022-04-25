@@ -1,27 +1,17 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
 import axios from 'axios';
 import WallPostButtons from './WallPostButtons';
+import { makeReq } from '../helper';
 
-export const PostComponent = () => {
-  const [wallPosts, setWallPosts] = useState([]);
+interface Props {
+  user: string;
+  body: string;
+  date: string;
+  _id: string;
+}
+
+export const PostComponent = (props: Props) => {
   const [isEdit, setIsEdit] = useState(false);
-
-  const fetchWallPostsData = () => {
-    axios
-      .get('http://localhost:3001/')
-      .then((response) => {
-        console.log('here');
-        console.log(response)
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log(axios.get('http://localhost:3001/wallposts'));
-      });
-  };
-
-  useEffect(() => {
-    fetchWallPostsData();
-  });
 
   const handleEditState = () => {
     setIsEdit(true);
@@ -31,7 +21,7 @@ export const PostComponent = () => {
   return (
     <div style={rootstyle}>
       <div style={postHeaderStyle}>
-        <h6 style={{ fontSize: '2rem', margin: 0 }}>Author</h6>
+        <h6 style={{ fontSize: '2rem', margin: 0 }}>{props.user}</h6>
         <p style={{}}>23-04-22</p>
       </div>
       <div>
@@ -39,11 +29,9 @@ export const PostComponent = () => {
         Dolor Sit amet Knasiga Kodare Is Coding Wow Lorem Ipsum Dolor Sit amet
         Knasiga Kodare Is Coding Wow Lorem Ipsum Dolor Sit amet Knasiga Kodare
         Is
-        
       </div>
       <WallPostButtons setEdit={handleEditState} />
     </div>
-
   );
 };
 
@@ -57,8 +45,8 @@ const rootstyle: CSSProperties = {
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'space-around',
-  padding: "1rem",
-  boxSizing: "border-box"
+  padding: '1rem',
+  boxSizing: 'border-box',
 };
 
 const postHeaderStyle: CSSProperties = {

@@ -1,8 +1,18 @@
 import { CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 
-function NewPost({ open, children, onClose }) {
+
+// interface Props {
+//   open: boolean,
+//   onClose: () => any
+// }
+
+function NewPost({ open, onClose }) {
   if (!open) return null;
+
+  const handleOnClickPost = () => {
+
+  }
 
   return ReactDOM.createPortal(
     <>
@@ -16,7 +26,7 @@ function NewPost({ open, children, onClose }) {
             name="post"
             id="post"
           />
-          <button style={submitButtonStyle} type="submit">Twat</button>
+          <button style={submitButtonStyle} type="submit" onClick={handleOnClickPost}>Twat</button>
         </div>
         <button onClick={onClose} style={closeButtonStyle}>
           X{/* <CloseIcon style={{ color: "#333" }} /> */}
