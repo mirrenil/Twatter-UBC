@@ -1,36 +1,8 @@
-import React, {useEffect, useState} from 'react'
-import Validation from './Validation';
+import useForm from './useForm'
 import "../App.css";
 
 const SignUpForm = ({submitForm}) => {
-
-    const [values, setValues] = useState({
-        username: '',
-        email: '',
-        password: '',
-    });
-
-    const [errors, setErrors] = useState<any>({});
-    const [dataIsCorrect, setDataIsCorrect] = useState(false);
-
-    const handleChange = (event) => {
-        setValues({
-            ...values,
-            [event.target.name]: event.target.value,
-        });
-    };
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        setErrors(Validation(values));
-        setDataIsCorrect(true);
-    };
-
-    useEffect(() => {
-        if(Object.keys(errors).length === 0 && dataIsCorrect) {
-            submitForm(true);
-        }
-    }, [ errors]);
-    
+   const {handleChange, handleFormSubmit, values, errors} = useForm(submitForm);
   return (
     <div className='container'>
         <h2>Become a twat!</h2>
