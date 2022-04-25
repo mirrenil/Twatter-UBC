@@ -1,6 +1,11 @@
 import useForm from './useForm'
 import "../App.css";
 
+export interface User {
+    username: string;
+    email: string;
+    password: string;
+}
 const SignUpForm = ({submitForm}) => {
    const {handleChange, handleFormSubmit, values, errors} = useForm(submitForm);
   return (
