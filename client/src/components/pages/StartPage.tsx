@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Form from '../Form';
 import NewPost from '../NewPost';
 import {PostComponent} from '../PostComponent';
+import SignUp from '../SignUp';
 
 const StartPage = () => {
 const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +12,8 @@ const [isOpen, setIsOpen] = useState(false);
       <button onClick={() => setIsOpen(true)}>+</button>
       <NewPost open={isOpen} onClose={() => setIsOpen(false)} >
         </NewPost>
-        <Form />
+        {/* SIGN UP COMPONENT SHOULD BE ADDED IN LOG IN COMPONENT */}
+        <SignUp />
     </div>
     
   ) 

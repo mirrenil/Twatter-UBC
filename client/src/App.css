@@ -1,22 +1,11 @@
 .container {
-    width: 70%;
-    height: 70vh;
+    width: 300px;
+    height: 450px;
     display: flex;
     border-radius: 5px;
     flex-direction: column;
-    align-content: center;
-    align-items: center;
     background-color: #fff;
 }
-
-.app-wrapper {
-    min-width: 350px;
-    min-height: 650px;
-    padding: 30px;
-    box-sizing: border-box;
-    border-bottom: 5px;
-}
-
 
 .name,
 .email,
@@ -33,7 +22,7 @@ input {
     height: 32px;
     font-size: 20px;
     outline: none;
-    width: 100%;
+    width: 80%;
     border-top-style: none;
     border-left-style: none;
     border-right-style: none;
