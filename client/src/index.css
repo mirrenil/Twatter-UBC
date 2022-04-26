@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 body {
-    background-color: rgb(139,0,174);
-    background: linear-gradient(90deg, rgba(139,0,174,0.836594012605042) 0%, rgba(255,92,0,1) 100%);
+    background-color: rgb(139, 0, 174);
+    background: linear-gradient(90deg, rgba(139, 0, 174, 0.836594012605042) 0%, rgba(255, 92, 0, 1) 100%);
     width: "100%";
     box-sizing: border-box;
     margin: 0;
@@ -24,7 +24,7 @@ h1 {
     justify-content: space-around;
 }
 
-input {
+.search {
     width: 10%;
     height: 30px;
     padding: 10px;

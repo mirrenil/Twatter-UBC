@@ -44,8 +44,7 @@ const StartPage: FC = () => {
             onClose={() => setIsNewPostOpen(false)}
           ></NewPost>
 
-        {/* SIGN UP COMPONENT SHOULD BE ADDED IN LOG IN COMPONENT */}
-        <SignUp />
+    </div>
 
     
 
