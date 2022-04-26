@@ -23,6 +23,7 @@ const useForm = (submitForm) => {
         e.preventDefault();
         setErrors(Validation(values));
         setDataIsCorrect(true);
+        submitForm(true);
         console.log(values);
     };
 
