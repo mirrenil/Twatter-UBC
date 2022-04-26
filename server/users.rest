@@ -29,8 +29,7 @@ Content-Type: application/json
     
 {
     "username": "zlatan",
-    "password": "123",
-    "email": "goranpersson@myspace.com"
+    "password": "123"
 }
 
 ###

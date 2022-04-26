@@ -1,12 +1,31 @@
 import useForm from "./useForm";
 import "../App.css";
+import { makeReq } from "../helper";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export interface User {
     username: string;
     email: string;
     password: string;
 }
+
+  
 const SignUpForm = ({submitForm}) => {
+const navigate = useNavigate();
+ const [user, setUser] = useState(false);
+
+ const signUp = async (username, email, password) => {
+    
+     console.log(username, email, password);
+    const newUser = { username, email, password };
+    let response = await makeReq("users/register", "POST", newUser);
+    console.log(response);
+    setTimeout(() => {
+      setUser(true);
+      navigate('/');
+    }, 1000);
+  }
    const {handleChange, handleFormSubmit, values, errors} = useForm(submitForm);
   return (
     <div className='container'>
@@ -25,7 +44,7 @@ const SignUpForm = ({submitForm}) => {
                  {errors.password && <p className='error'>{errors.password}</p>}
             </div>
             <div className='btn'>
-                <button type="submit">Sign up</button>
+                <button onClick={() => signUp(values.username, values.email, values.password)} type="submit">Sign up</button>
             </div>
         </form>
     </div>

@@ -1,8 +1,9 @@
 import { FormEvent, useEffect, useState } from "react"; 
 import Validation from "./Validation";
+import { useUserContext } from './context/UserContext'
 
 
-export const useForm = (submitForm) => {
+const useForm = (submitForm) => {
 
  const [values, setValues] = useState({
         username: '',
@@ -12,6 +13,8 @@ export const useForm = (submitForm) => {
 
     const [errors, setErrors] = useState<any>({});
     const [dataIsCorrect, setDataIsCorrect] = useState(false);
+
+    // const { signUp } = useUserContext();
 
     const handleChange = (event) => {
         setValues({
@@ -25,6 +28,7 @@ export const useForm = (submitForm) => {
         setDataIsCorrect(true);
         submitForm(true);
         console.log(values);
+        
     };
 
     useEffect(() => {

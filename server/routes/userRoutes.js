@@ -46,7 +46,7 @@ router.get("users/authenticate", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-})
+});
 
 /** ----POST----- */
 /** ----CREATE A NEW TWAT---- */
@@ -77,7 +77,7 @@ router.post("/users/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   console.log("Signed in!");
-  const user = await userModel.findOne({ email: req.body.email });
+  const user = await userModel.findOne({ username: req.body.username });
   console.log(user);
   if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
     return res
