@@ -2,6 +2,8 @@ import React, { CSSProperties, FC, useEffect, useState } from 'react';
 import NewPost from '../NewPost';
 import { PostComponent } from '../PostComponent';
 import { makeReq } from '../../helper';
+import SignUp from '../SignUp';
+
 
 export interface IWallPost {
   user: string;
@@ -31,6 +33,7 @@ const StartPage: FC = () => {
 
   return (
     <div>
+
         {wallPosts.map((post) => {
           return <PostComponent key={post._id} post={post} />;
         })}
@@ -40,6 +43,10 @@ const StartPage: FC = () => {
             open={isNewPostOpen}
             onClose={() => setIsNewPostOpen(false)}
           ></NewPost>
+
+        {/* SIGN UP COMPONENT SHOULD BE ADDED IN LOG IN COMPONENT */}
+        <SignUp />
+
     
 
     </div>
