@@ -1,5 +1,6 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, FormEvent, FormEventHandler, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { makeReq } from '../helper';
 
 
 // interface Props {
@@ -8,10 +9,23 @@ import ReactDOM from 'react-dom';
 // }
 
 function NewPost({ open, onClose }) {
+  const [postBody, setPostBody] = useState<string>("");
   if (!open) return null;
 
-  const handleOnClickPost = () => {
+  const addNewPost = async () => {
+      let response = await makeReq('/users/authenticate', 'GET');
+      console.log(response);
+  }
+  
+  const handleOnClickPost = (e: FormEvent) => {
+    e.preventDefault();
+    addNewPost();
+    console.log(postBody);
+    return
+  }
 
+  const handleOnChange = (e) => {
+    setPostBody(e.target.value)
   }
 
   return ReactDOM.createPortal(
@@ -20,13 +34,19 @@ function NewPost({ open, onClose }) {
       <div style={modalStyles}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <h2>SHARE SOME TWATTER</h2>
+          <form action="" onSubmit={handleOnClickPost}>
           <input
             style={{ width: '70%', height: '100px', border: 'none' }}
             type="text"
+            value={postBody}
+            onChange={handleOnChange}
             name="post"
             id="post"
+            placeholder='Any secrets you want to share?...'
+            required
           />
-          <button style={submitButtonStyle} type="submit" onClick={handleOnClickPost}>Twat</button>
+          <button style={submitButtonStyle} type="submit" >Twat</button>
+          </form>
         </div>
         <button onClick={onClose} style={closeButtonStyle}>
           X{/* <CloseIcon style={{ color: "#333" }} /> */}

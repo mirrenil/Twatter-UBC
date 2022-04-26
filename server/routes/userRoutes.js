@@ -40,6 +40,14 @@ router.get("/users/:username", async (req, res) => {
   }
 });
 
+router.get("users/authenticate", async (req, res) => {
+  try {
+    console.log(req.session);
+  } catch (err) {
+    console.log(err);
+  }
+})
+
 /** ----POST----- */
 /** ----CREATE A NEW TWAT---- */
 router.post("/users/register", async (req, res) => {
