@@ -1,6 +1,5 @@
 import React, {
   createContext,
-  createFactory,
   FC,
   useContext,
   useEffect,
@@ -8,17 +7,14 @@ import React, {
 } from 'react';
 import { makeReq } from '../../helper';
 
-// interface IUserContextValue {
-//     username: string,
-//     password: string,
-//     email: string,
-//     admin: boolean,
-//     isLoggedIn: boolean,
-//     authorize: () => void
-// }
+interface IUserContextValue {
+ isLoggedIn: boolean,
+ logIn: (email: string, password: string) => void;
+}
 
-export const UserContext = createContext({
+export const UserContext = createContext<IUserContextValue>({
   isLoggedIn: false,
+  logIn: () => ""
 });
 
 export function useUserContext() {
@@ -42,11 +38,12 @@ const UserProvider: FC = (props) => {
     getLoggedInUser();
   }, []);
 
-  const logIn = async (email: string, password: string) => {
+  const logIn = async (email, password) => {
       const user = { email, password };
       let response = await makeReq("/login", "POST", user);
       console.log(response);
+      return response;
   }
 
-  return <UserContext.Provider value={{ isLoggedIn }}></UserContext.Provider>;
+  return <UserContext.Provider value={{ isLoggedIn, logIn }}></UserContext.Provider>;
 };
