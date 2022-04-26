@@ -1,30 +1,39 @@
-import { CSSProperties } from 'react';
+import React, { CSSProperties, useState } from 'react'
 import ReactDOM from 'react-dom';
-import "../App.css";
-import LogIn from './LogIn';
+import SignUpForm from './SignUpForm'
+import SignUpSuccess from './SignUpSuccess'
 
-interface ILogInProps {
+interface ISignUpProps {
     open: boolean;
     onClose: () => void;
 }
 
-const LogInComponent = ({ open, onClose }) => {
-  if (!open) return null;
+const SignUpComponent = ({ open, onClose }) => {
+  const [formIsSubmitted, setFormIsSubmitted] = useState(false);
+    if (!open) return null;
+
+    const submitForm = () => {
+        setFormIsSubmitted(true);
+    };
 
   return ReactDOM.createPortal(
     <>
       <div style={overlayStyles}>
         <div style={modalStyles}>
-          <div className='container'>
-            <LogIn />
-        </div>
-        <button onClick={onClose} style={{ position: "fixed", padding: '0', top: '15px', left:'5px' }}>X
+          <div>
+      {!formIsSubmitted ? (
+        <SignUpForm submitForm={submitForm}/>
+      ) : (
+        <SignUpSuccess />
+      )} 
+       </div>
+       <button onClick={onClose} style={{ position: "fixed", padding: '0', top: '15px', left:'5px' }}>X
             {/* <CloseIcon style={{ color: "#333" }} /> */}
           </button>
         </div>
       </div>
     </>,
-    document.getElementById("login")!
+    document.getElementById("signup")!
   );
 }
 const modalStyles: CSSProperties = {
@@ -52,4 +61,4 @@ const overlayStyles: CSSProperties = {
   zIndex: 1000,
 };
 
-export default LogInComponent;
+export default SignUpComponent;
