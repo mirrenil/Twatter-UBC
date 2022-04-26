@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react'
+import { CSSProperties, useState } from 'react'
 import ReactDOM from 'react-dom';
 import SignUpForm from './SignUpForm'
 import SignUpSuccess from './SignUpSuccess'
@@ -28,7 +28,6 @@ const SignUpComponent = ({ open, onClose }) => {
       )} 
        </div>
        <button onClick={onClose} style={{ position: "fixed", padding: '0', top: '15px', left:'5px' }}>X
-            {/* <CloseIcon style={{ color: "#333" }} /> */}
           </button>
         </div>
       </div>

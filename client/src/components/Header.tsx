@@ -16,7 +16,6 @@ const Header = () => {
      
     </div>
 };
-
 const btn: CSSProperties = {
     background: "transparent",
     border: "none",
