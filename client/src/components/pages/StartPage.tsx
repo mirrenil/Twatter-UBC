@@ -2,9 +2,6 @@ import React, { CSSProperties, FC, useEffect, useState } from 'react';
 import NewPost from '../NewPost';
 import { PostComponent } from '../PostComponent';
 import { makeReq } from '../../helper';
-import SignUp from '../SignUp';
-
-
 export interface IWallPost {
   user: string;
   body: string;
