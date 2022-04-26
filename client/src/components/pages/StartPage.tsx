@@ -38,21 +38,17 @@ const StartPage: FC = () => {
           return <PostComponent key={post._id} post={post} />;
         })}
      
-          <button style={buttonStyle} onClick={() => setIsNewPostOpen(true)}>+</button>
+          <button style={btn} onClick={() => setIsNewPostOpen(true)}>+</button>
           <NewPost
             open={isNewPostOpen}
             onClose={() => setIsNewPostOpen(false)}
           ></NewPost>
 
     </div>
-
-    
-
-    </div>
   );
 };
 
-const buttonStyle: CSSProperties = {
+const btn: CSSProperties = {
   height: '3.5rem',
   width: '3.5rem',
   borderRadius: '100%',
