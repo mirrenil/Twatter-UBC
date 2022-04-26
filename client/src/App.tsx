@@ -1,12 +1,8 @@
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import Layout from './components/Layout';
 import StartPage from './/components/pages/StartPage';
-import axios from 'axios'
 
 const App = () => {
-
-
-
 
   return (
     <BrowserRouter>
