@@ -48,7 +48,7 @@ const modalStyles: CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  height: '300px',
+  height: '400px',
 }
 
 const overlayStyles: CSSProperties = {
