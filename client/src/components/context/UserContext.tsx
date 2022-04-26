@@ -1,36 +1,52 @@
-import React, { createContext, createFactory, FC, useContext, useState } from 'react';
+import React, {
+  createContext,
+  createFactory,
+  FC,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { makeReq } from '../../helper';
 
-interface IUserContextValue {
-    username: string,
-    password: string,
-    email: string,
-    admin: boolean,
-    isLoggedIn: boolean,
-    authorize: () => void
-}
+// interface IUserContextValue {
+//     username: string,
+//     password: string,
+//     email: string,
+//     admin: boolean,
+//     isLoggedIn: boolean,
+//     authorize: () => void
+// }
 
-export const UserContext = createContext<IUserContextValue>({
-    username: "",
-    password: "",
-    email: "",
-    admin: false,
-    isLoggedIn: false,
-    authorize: () => ''
-})
+export const UserContext = createContext({
+  isLoggedIn: false,
+});
 
 export function useUserContext() {
-    return useContext(UserContext)
+  return useContext(UserContext);
 }
 
 const UserProvider: FC = (props) => {
-    const [user, setUser] = useState();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    
-   
+  const [user, setUser] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  useEffect(() => {
+    const getLoggedInUser = async () => {
+      try {
+        let response = makeReq('/login', 'GET');
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+        return;
+      }
+    };
+    getLoggedInUser();
+  }, []);
 
-    return (
-        <div></div>
-    )
-}
+  const logIn = async (email: string, password: string) => {
+      const user = { email, password };
+      let response = await makeReq("/login", "POST", user);
+      console.log(response);
+  }
+
+  return <UserContext.Provider value={{ isLoggedIn }}></UserContext.Provider>;
+};

@@ -2,7 +2,7 @@ import React, { CSSProperties, FC, useEffect, useState } from 'react';
 import NewPost from '../NewPost';
 import { PostComponent } from '../PostComponent';
 import { makeReq } from '../../helper';
-import SignUp from '../SignUp';
+// import SignUp from '../SignUp';
 
 
 export interface IWallPost {
@@ -43,10 +43,6 @@ const StartPage: FC = () => {
             open={isNewPostOpen}
             onClose={() => setIsNewPostOpen(false)}
           ></NewPost>
-
-    </div>
-
-    
 
     </div>
   );
