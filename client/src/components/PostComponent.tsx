@@ -19,14 +19,11 @@ export const PostComponent = (props: Props) => {
   return (
     <div style={rootstyle}>
       <div style={postHeaderStyle}>
-        <h6 style={{ fontSize: '2rem', margin: 0 }}>Author</h6>
-        <p style={{}}>23-04-22</p>
+        <h6 style={{ fontSize: '2rem', margin: 0 }}>{props.post.user}</h6>
+        <p style={{}}>{props.post.date}</p>
       </div>
       <div>
-        Lorem Ipsum Dolor Sit amet Knasiga Kodare Is Coding Wow Lorem Ipsum
-        Dolor Sit amet Knasiga Kodare Is Coding Wow Lorem Ipsum Dolor Sit amet
-        Knasiga Kodare Is Coding Wow Lorem Ipsum Dolor Sit amet Knasiga Kodare
-        Is
+        {props.post.body}
       </div>
       <WallPostButtons setEdit={handleEditState} />
     </div>
@@ -35,7 +32,7 @@ export const PostComponent = (props: Props) => {
 
 const rootstyle: CSSProperties = {
   backgroundColor: 'rgba(237, 237, 237, 0.5)',
-  height: '20rem',
+  height: '100%',
   width: '40rem',
   borderRadius: '5px 22px 50px 22px',
   margin: '10px auto',

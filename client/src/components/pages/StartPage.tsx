@@ -30,14 +30,11 @@ const StartPage: FC = () => {
   console.log(wallPosts);
 
   return (
-    <div style={{border: "2px solid yellow"}} >
-      
-      <div>
-      {wallPosts.map((post) => {
-        <PostComponent post={post} />;
-        console.log('hej')
-      })}
-     </div>
+    <div>
+        {wallPosts.map((post) => {
+          return <PostComponent key={post._id} post={post} />;
+        })}
+     
           <button style={buttonStyle} onClick={() => setIsNewPostOpen(true)}>+</button>
           <NewPost
             open={isNewPostOpen}

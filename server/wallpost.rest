@@ -12,7 +12,7 @@ Content-Type: application/json
 
 {
     "username": "Kalle",
-    "date": "",
+    "date": ,
     "body": "Tjo bloggen! Detta är mitt första inlägg, glöm inte att följa mig på youtube!!"
 
 }
