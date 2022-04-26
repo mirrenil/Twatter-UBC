@@ -1,51 +1,51 @@
-import { CSSProperties, FC, useEffect, useState } from 'react';
+import React, { CSSProperties, FC, useEffect, useState } from 'react';
 import NewPost from '../NewPost';
 import { PostComponent } from '../PostComponent';
 import { makeReq } from '../../helper';
 
-
-interface IWallPosts {
-  user: string,
-  
+export interface IWallPost {
+  user: string;
+  body: string;
+  date: string;
+  _id: string;
 }
 
 const StartPage: FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [wallPosts, setWallPosts] = useState<IWallPosts>([]);
+  const [isNewPostOpen, setIsNewPostOpen] = useState(false);
+  const [wallPosts, setWallPosts] = useState<IWallPost[]>([]);
   const [user, setUser] = useState();
-
-
+  const blert = [1, 2, 3];
 
   const fetchWallPostsData = async () => {
     let response = await makeReq('/wallposts', 'GET');
     console.log(response);
     setWallPosts(response);
-
-    wallPosts.map(post => {
-      console.log(post)
-    })
-    return
+    return;
   };
-
-
 
   useEffect(() => {
     fetchWallPostsData();
   }, []);
 
+  console.log(wallPosts);
+
   return (
-    <>
-        {wallPosts.map(post => {
-          <PostComponent props={post}/>
-        })}
-        
+    <div style={{border: "2px solid yellow"}} >
+      
+      <div>
+      {wallPosts.map((post) => {
+        <PostComponent post={post} />;
+        console.log('hej')
+      })}
+     </div>
+          <button style={buttonStyle} onClick={() => setIsNewPostOpen(true)}>+</button>
+          <NewPost
+            open={isNewPostOpen}
+            onClose={() => setIsNewPostOpen(false)}
+          ></NewPost>
+    
 
-      <button style={buttonStyle} onClick={() => setIsOpen(true)}>
-        +
-      </button>
-      <NewPost open={isOpen} onClose={() => setIsOpen(false)}></NewPost>
-
-    </>
+    </div>
   );
 };
 

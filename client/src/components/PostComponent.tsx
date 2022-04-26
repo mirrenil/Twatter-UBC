@@ -1,13 +1,11 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
-import axios from 'axios';
 import WallPostButtons from './WallPostButtons';
 import { makeReq } from '../helper';
+import {IWallPost} from './pages/StartPage'
 
 interface Props {
-  user: string;
-  body: string;
-  date: string;
-  _id: string;
+  post: IWallPost,
+  
 }
 
 export const PostComponent = (props: Props) => {
@@ -21,7 +19,7 @@ export const PostComponent = (props: Props) => {
   return (
     <div style={rootstyle}>
       <div style={postHeaderStyle}>
-        <h6 style={{ fontSize: '2rem', margin: 0 }}>{props.user}</h6>
+        <h6 style={{ fontSize: '2rem', margin: 0 }}>Author</h6>
         <p style={{}}>23-04-22</p>
       </div>
       <div>

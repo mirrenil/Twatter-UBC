@@ -11,7 +11,7 @@ POST http://localhost:3001/wallposts/newpost
 Content-Type: application/json
 
 {
-    "username": "Kalaspuff",
+    "username": "Kalle",
     "date": "",
     "body": "Tjo bloggen! Detta är mitt första inlägg, glöm inte att följa mig på youtube!!"
 
