@@ -17,11 +17,13 @@ h1 {
     font-family: 'Permanent Marker',
         cursive;
     margin: 0;
+
 }
 
 .header {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    margin-top: 1.3rem;
 }
 
 .search {
