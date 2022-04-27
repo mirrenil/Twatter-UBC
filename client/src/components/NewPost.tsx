@@ -27,22 +27,11 @@ function NewPost({ open, onClose }) {
     const newWallPost = { username: currentUser, body: postBody};
     setNewPost({ currentUser, postBody})
       let response = await makeReq('/wallposts/newpost', "POST", newWallPost);
-      alert(response)
         setTimeout(() => {
           navigate('/');
         }, 1000);
         return;
   }
-  //  const addNewPost = async (postBody) => {
-  //   const newWallPost = { user: currentUser, date: new Date(), body: postBody }
-  //   setNewPost({currentUser, postBody})
-  //   let response = await makeReq("/wallposts/newpost", "POST", newWallPost);
-  //   console.log(response);
-  //   setTimeout(() => {
-  //     navigate("/");
-  //   }, 1000);
-
-  // };
 
   const handleOnClickPost = (e: FormEvent) => {
     console.log('handleonclickpost');
