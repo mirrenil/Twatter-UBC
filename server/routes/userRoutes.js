@@ -40,13 +40,16 @@ router.get("/users/:username", async (req, res) => {
   }
 });
 
-router.get("users/authenticate", async (req, res) => {
-  try {
-    console.log(req.session);
-  } catch (err) {
-    console.log(err);
-  }
-});
+// router.get("users/authenticate", async (req, res) => {
+//   try {
+//     const signedInUser = await userModel.findOne({});
+//     res.json(signedInUser);
+//     console.log(req.session);
+//   } catch (err) {
+//     console.log(err);
+//     res.send("An error occured");
+//   }
+// });
 
 /** ----POST----- */
 /** ----CREATE A NEW TWAT---- */

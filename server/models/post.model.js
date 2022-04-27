@@ -1,13 +1,9 @@
 import mongoose from "mongoose";
 
 const wallPostSchema = new mongoose.Schema({
-  user: {
+  username: {
     required: true,
     type: String,
-  },
-  date: {
-    required: true,
-    type: Date,
   },
   body: {
     required: true,

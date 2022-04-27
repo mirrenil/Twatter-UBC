@@ -4,14 +4,13 @@ import Express from "express";
 export const router = Express.Router();
 router.use(Express.json());
 
-/ ----GET----- */
-
+/ ----GET----- */;
 
 router.get("/wallposts", async (req, res) => {
   try {
     const wallPosts = await wallPostModel.find({});
 
-    console.log(wallPosts)
+    console.log(wallPosts);
 
     res.json(wallPosts);
   } catch (err) {
@@ -22,7 +21,6 @@ router.get("/wallposts", async (req, res) => {
 
 router.get("/wallposts/:user", async (req, res) => {
   try {
-
     const wallPost = await wallPostModel.findOne({ user: req.params.user });
     res.json(wallPost);
   } catch (err) {
@@ -31,28 +29,46 @@ router.get("/wallposts/:user", async (req, res) => {
   }
 });
 
-/ ----POST----- */
+/ ----POST----- */;
+
+// router.post("/wallposts/newpost", async (req, res) => {
+//   console.log(req);
+//   console.log(res);
+//   try {
+//     const newWallPost = new wallPostModel({
+//       username: req.body.username,
+//       body: req.body.body,
+//     });
+//     console.log(newWallPost);
+//     await newWallPost.save();
+//     res.json(newWallPost);
+//   } catch (err) {
+//     if (err.code === 1100) {
+//       res.send("Something went wrong");
+//       return;
+//     }
+//     res.send("An error has occurd " + err);
+//   }
+// });
 
 router.post("/wallposts/newpost", async (req, res) => {
-
+  console.log("HEJ");
   try {
-    const newWallPost = await new wallPostModel({
-      user: req.body.username,
-      date: new Date(),
+    const newPost = new wallPostModel({
+      username: req.body.username,
       body: req.body.body,
     });
-    console.log(newWallPost);
-    await newWallPost.save();
-    res.json(newWallPost);
+    console.log(newPost);
+    await newPost.save({ username: req.body.username, body: req.body.body });
+    return res.json("new post has been created");
   } catch (err) {
-    if (err.code === 404) {
-      res.send("Something went wrong");
+    if (err.code === 11000) {
+      res.json("Oops try again");
       return;
     }
-    res.send("an error has occurd");
+    res.json("An error occured " + err);
   }
 });
-
 
 router.put("/wallposts/:user", async (req, res) => {
   try {

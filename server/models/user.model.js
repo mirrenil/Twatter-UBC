@@ -14,9 +14,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  admin: {
-    type: Boolean,
-  },
 });
 
-export default mongoose.model("user", userSchema);
+export default mongoose.model("User", userSchema);

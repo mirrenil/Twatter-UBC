@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import { makeReq } from "../helper";
-import LogIn from "./LogIn";
+import { useUserContext } from "./context/UserContext";
+// import LogIn from "./LogIn";
 import useSignIn from "./useSignIn";
 
 export interface LoggedInUser {
@@ -11,19 +12,11 @@ export interface LoggedInUser {
 }
 
 const LogInForm = ({ submitForm }) => {
-    const navigate = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    
 
-    const logIn = async (username, password) => {
-        console.log(username, password);
-        const user = { username, password };
-        let response = await makeReq("/login", "POST", user);
-        console.log(response);
-        setTimeout(() => {
-            setIsLoggedIn(true);
-            navigate('/');
-        }, 1000);
-    }
+    const { setIsLoggedIn, isLoggedIn, logIn } = useUserContext();
+
+    
         const { handleChange, handleFormSubmit, values, errors } = useSignIn(submitForm);
         return (
             <div className='sign-up-container'>

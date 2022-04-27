@@ -6,7 +6,7 @@ import { makeReq } from '../../helper';
 
 
 export interface IWallPost {
-  user: string;
+  username: string;
   body: string;
   date: string;
   _id: string;
@@ -15,24 +15,22 @@ export interface IWallPost {
 const StartPage: FC = () => {
   const [isNewPostOpen, setIsNewPostOpen] = useState(false);
   const [wallPosts, setWallPosts] = useState<IWallPost[]>([]);
-  const [user, setUser] = useState();
-  const blert = [1, 2, 3];
 
-  const fetchWallPostsData = async () => {
-    let response = await makeReq('/wallposts', 'GET');
-    console.log(response);
-    setWallPosts(response);
-    return;
-  };
+
+  
 
   useEffect(() => {
+    const fetchWallPostsData = async () => {
+        let response = await makeReq('/wallposts', 'GET');
+        console.log(response)
+        setWallPosts(response);
+        return;
+      };
     fetchWallPostsData();
   }, []);
 
-  console.log(wallPosts);
-
   return (
-    <div>
+    <div> 
 
         {wallPosts.map((post) => {
           return <PostComponent key={post._id} post={post} />;
