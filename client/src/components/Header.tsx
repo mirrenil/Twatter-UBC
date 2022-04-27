@@ -28,9 +28,7 @@ const Header = () => {
           <h1>Twatter</h1>
           <img style={logo} src={shhLogo} alt="Twatter's logo" />
           </div>
-        <input className="search" type="search" name="search" id="search" placeholder="Search..." />
-
-
+        <div style={{ display: "flex"}}>
           {!isLoggedIn ? (
             <>
               <button style={btn} onClick={() => setIsLogInOpen(true)}>Sign In</button>
@@ -40,12 +38,17 @@ const Header = () => {
             </>
               ) : (
                 <>
+                <div style={{display: "flex" }}>
+                <span style={{color: "white", fontSize: "1.5rem", margin: "1rem"}}>{currentUser}</span>
                 <div style={{border: "2px solid white", height: "3rem", width: "3rem", borderRadius: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                <span style={{fontSize: "2rem", marginTop: "7px"}}>😈 </span>
+                <span style={{fontSize: "2rem", marginTop: "7px"}}>😈</span>
+                </div>
                 </div>
                 <button onClick={() => signOutFunction()} style={btn}>Sign Out</button>
             </>
+           
               )}
+               </div>
       </div>
   );
 

@@ -3,7 +3,7 @@ import WallPostButtons from './WallPostButtons';
 import {IWallPost} from './pages/StartPage'
 import { useUserContext } from './context/UserContext';
 import { makeReq } from '../helper';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   post: IWallPost,
@@ -44,10 +44,18 @@ export const PostComponent = (props: Props) => {
     }, 1000);
   };
 
+  const deletePost = async () => {
+    let response = await makeReq(`/wallposts/${props.post._id}`, "DELETE")
+    console.log(response)
+    setTimeout(() => {
+      navigate('/')
+    }, 1000);
+  }
+
   return (
     <div style={rootstyle}>
       <div style={postHeaderStyle}>
-        <h6 style={{ fontSize: '2rem', margin: 0 }}>{props.post.username}</h6>
+        <h6 style={{ fontSize: '1.5rem', margin: 0 }}>{props.post.username}</h6>
         <p style={{}}>{props.post.date}</p>
       </div>
 
@@ -63,7 +71,7 @@ export const PostComponent = (props: Props) => {
      )}
 
       {currentUser === props.post.username ? (
-        <WallPostButtons setEdit={handleEditState} />
+        <WallPostButtons deletePost={deletePost} setEdit={handleEditState} />
       ):(
         null
       )}
@@ -75,7 +83,8 @@ export const PostComponent = (props: Props) => {
 const rootstyle: CSSProperties = {
   backgroundColor: 'rgba(237, 237, 237, 0.5)',
   height: '100%',
-  width: '40rem',
+  maxWidth: '30rem',
+  minWidth: '20rem',
   borderRadius: '5px 22px 50px 22px',
   margin: '10px auto',
   display: 'flex',
