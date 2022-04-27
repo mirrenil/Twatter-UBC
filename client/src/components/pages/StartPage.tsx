@@ -2,9 +2,7 @@ import React, { CSSProperties, FC, useEffect, useState } from 'react';
 import NewPost from '../NewPost';
 import { PostComponent } from '../PostComponent';
 import { makeReq } from '../../helper';
-// import SignUp from '../SignUp';
-
-
+import { useLocation } from 'react-router-dom';
 export interface IWallPost {
   username: string;
   body: string;
@@ -15,9 +13,8 @@ export interface IWallPost {
 const StartPage: FC = () => {
   const [isNewPostOpen, setIsNewPostOpen] = useState(false);
   const [wallPosts, setWallPosts] = useState<IWallPost[]>([]);
+  const location = useLocation();
 
-
-  
 
   useEffect(() => {
     const fetchWallPostsData = async () => {
@@ -27,7 +24,7 @@ const StartPage: FC = () => {
         return;
       };
     fetchWallPostsData();
-  }, []);
+  }, [location]);
 
   return (
     <div> 

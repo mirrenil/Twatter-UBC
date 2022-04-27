@@ -8,6 +8,7 @@ const wallPostSchema = new mongoose.Schema({
   body: {
     required: true,
     type: String,
+    unique: true,
   },
 });
 

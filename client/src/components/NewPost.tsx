@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { makeReq } from '../helper';
 import { useUserContext } from './context/UserContext';
 
-/* 
+/*
 interface Props {
   open: boolean,
   onClose: () => any
@@ -21,16 +21,17 @@ function NewPost({ open, onClose }) {
 
   if (!open) return null;
 
-  
+
 
   const addNewPost = async (currentUser, postBody: string) => {
     const newWallPost = { username: currentUser, body: postBody};
-    setNewPost({ postBody})
+    setNewPost({ currentUser, postBody})
       let response = await makeReq('/wallposts/newpost', "POST", newWallPost);
-      console.log(response)
+      alert(response)
         setTimeout(() => {
           navigate('/');
         }, 1000);
+        return;
   }
   //  const addNewPost = async (postBody) => {
   //   const newWallPost = { user: currentUser, date: new Date(), body: postBody }
@@ -42,8 +43,9 @@ function NewPost({ open, onClose }) {
   //   }, 1000);
 
   // };
-  
+
   const handleOnClickPost = (e: FormEvent) => {
+    console.log('handleonclickpost');
     e.preventDefault();
     addNewPost(currentUser, postBody);
     return
@@ -71,7 +73,7 @@ function NewPost({ open, onClose }) {
             placeholder='Any secrets you want to share?...'
             required
           />
-          <button onClick={() => addNewPost(currentUser, postBody)} style={submitButtonStyle} type="submit" >Twat</button>
+          <button  style={submitButtonStyle} type="submit" >Twat</button>
           </form>
         </div>
         <button onClick={onClose} style={closeButtonStyle}>X

@@ -34,7 +34,7 @@ export const UserContext = createContext<IUserContextValue>({
  const UserProvider = (props) => {
   // const [newUser, setNewUser] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<string>("blö");
+  const [currentUser, setCurrentUser] = useState<string>("Not signed in!");
 
   const navigate = useNavigate();
 
@@ -69,7 +69,7 @@ export const UserContext = createContext<IUserContextValue>({
     console.log(currentUser);
     setTimeout(() => {
         console.log()
-        navigate('/');
+        // navigate('/');
     }, 1000);
   }
 
@@ -78,15 +78,11 @@ export const UserContext = createContext<IUserContextValue>({
     console.log(response);
     setIsLoggedIn(false);
     setTimeout(() => {
-      // window.location.reload();
+      window.location.reload();
       navigate('/')
     
     }, 2000);
   }
-
-  
-
-
 
 
   return (
