@@ -1,16 +1,17 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import ErrorBoundary from "./ErrorBoundary";
 import Footer from "./Footer";
 import Header from "./Header";
 
-const Layout = () => {
+function Layout() {
   window.scrollTo(0, 0);
-
-  console.log('layyyyout')
+  const navigate = useNavigate();
   return (
     <div>
       <Header />
+      <ErrorBoundary onGoBack={() => navigate("/")}>
       <Outlet />
-      <Footer />
+       </ErrorBoundary>
     </div>
   );
 };
