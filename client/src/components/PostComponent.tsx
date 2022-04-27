@@ -28,7 +28,12 @@ export const PostComponent = (props: Props) => {
       <div>
         {props.post.body}
       </div>
-      <WallPostButtons setEdit={handleEditState} />
+      {currentUser === props.post.username ? (
+        <WallPostButtons setEdit={handleEditState} />
+      ):(
+        null
+      )}
+      
     </div>
   );
 };
