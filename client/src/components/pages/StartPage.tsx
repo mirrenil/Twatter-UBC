@@ -8,7 +8,7 @@ export interface IWallPost {
   username: string;
   body: string;
   date: string;
-  _id: string;
+  _id: string
 }
 
 const StartPage: FC = () => {
@@ -28,6 +28,7 @@ const StartPage: FC = () => {
   }, [location]);
 
   return (
+
     <div>
       {wallPosts.map((post) => {
         return <PostComponent key={post._id} post={post} />;

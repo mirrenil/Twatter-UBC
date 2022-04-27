@@ -2,13 +2,16 @@ import mongoose from "mongoose";
 
 const wallPostSchema = new mongoose.Schema({
   username: {
-    required: true,
     type: String,
   },
   body: {
     required: true,
     type: String,
     unique: true,
+  },
+  id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
   },
 });
 
