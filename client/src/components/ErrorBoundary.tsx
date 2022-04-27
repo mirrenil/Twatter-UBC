@@ -28,7 +28,7 @@ class ErrorBoundary extends Component<Props, State> {
     this.setState({ hasError: false });
   };
 
-  return() {
+  render() {
 
     if (this.state.hasError) {
         return (
