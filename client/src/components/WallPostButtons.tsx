@@ -1,17 +1,23 @@
-import react, { CSSProperties, useState } from 'react';
+import { CSSProperties } from 'react';
 import { Icon } from '@iconify/react';
 
 interface Props {
     setEdit: () => void;
+    deletePost: () => void;
 }
 
 
 
-const WallPostButtons = ({setEdit}: Props) => {
+const WallPostButtons = ({setEdit, deletePost}: Props) => {
     
     const handleOnEditClick = () => {
-        setEdit();
+        setEdit(); 
     }
+
+    const handleOnDeleteClick = () => {
+        deletePost();
+    }
+        
 
 
     return (
@@ -19,7 +25,7 @@ const WallPostButtons = ({setEdit}: Props) => {
             <button style={buttonStyle} onClick={handleOnEditClick}>
                 <Icon icon="ci:edit" style={iconStyle} />
             </button>
-            <button style={buttonStyle}>
+            <button style={buttonStyle} onClick={handleOnDeleteClick}>
                 <Icon icon="fluent:delete-48-filled" style={iconStyle} />
             </button>
             

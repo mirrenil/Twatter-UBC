@@ -96,15 +96,12 @@ router.put("/wallposts/:id", async (req, res) => {
 
 /** ----DELETE----- */
 
-router.delete("/wallposts/:user", async (req, res) => {
+router.delete("/wallposts/:id", async (req, res) => {
   try {
-    const { user } = req.params;
-
-    const removedWallPost = await wallPostModel.findOneAndRemove({
-      user: req.params.user,
-    });
+    const { id } = req.params;
+    const removedWallPost = await wallPostModel.findByIdAndRemove(id);
     if (!removedWallPost) {
-      res.send("Wall post not found");
+      res.json("Wall post not found");
       return;
     }
     res.json(removedWallPost);
