@@ -19,13 +19,12 @@ Content-Type: application/json
 ### PUT STILL NOT UPDATING CORRECTLY
 
 
-PUT http://localhost:3001/wallposts/Kalaspuff
+PUT http://localhost:3001/wallposts/626959ab3c1ddb571f4494e4
 Content-Type: application/json
 
-    {
-    "username": "Lolli",
-    "date": "12/10/22",
-    "body": "Tjo bloggen! Detta är mitt första inlägg, glöm inte att följa mig på youtube!!"
+{
+    "username": "Lollipop",
+    "body": "Hej hopp!!"
 
 }
 

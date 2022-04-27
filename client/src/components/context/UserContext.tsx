@@ -17,7 +17,7 @@ interface IUserContextValue {
  setIsLoggedIn,
  logIn,
  signOut,
- currentUser: ICurrentUser | any
+ currentUser: ICurrentUser | any,
 }
 
 export const UserContext = createContext<IUserContextValue>({
@@ -28,6 +28,7 @@ export const UserContext = createContext<IUserContextValue>({
   currentUser: {
     username: "",
   }
+  
 })
 
 
@@ -35,7 +36,7 @@ export const UserContext = createContext<IUserContextValue>({
   // const [newUser, setNewUser] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<string>("Not signed in!");
-
+  const [isEdit, setIsEdit] = useState<boolean>(false);
   const navigate = useNavigate();
 
     
@@ -87,7 +88,7 @@ export const UserContext = createContext<IUserContextValue>({
 
   return (
   <UserContext.Provider
-   value={{ isLoggedIn, setIsLoggedIn, currentUser, logIn, signOut }}>
+   value={{ isLoggedIn, setIsLoggedIn, currentUser, logIn, signOut}}>
      {props.children}
    </UserContext.Provider>
   );

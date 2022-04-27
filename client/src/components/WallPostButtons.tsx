@@ -1,4 +1,4 @@
-import react, { CSSProperties } from 'react';
+import react, { CSSProperties, useState } from 'react';
 import { Icon } from '@iconify/react';
 
 interface Props {
@@ -8,10 +8,11 @@ interface Props {
 
 
 const WallPostButtons = ({setEdit}: Props) => {
-
+    
     const handleOnEditClick = () => {
         setEdit();
     }
+
 
     return (
         <div style={rootstyle}>
@@ -39,3 +40,4 @@ const buttonStyle: CSSProperties = {
 }
 
 export default WallPostButtons;
+

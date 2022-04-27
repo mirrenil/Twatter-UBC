@@ -70,10 +70,16 @@ router.post("/wallposts/newpost", async (req, res) => {
   }
 });
 
-router.put("/wallposts/:user", async (req, res) => {
+/** ---- PUT ------ */
+
+router.put("/wallposts/:id", async (req, res) => {
+  console.log(req);
+  console.log(req.params);
   try {
-    const { user } = req.params;
-    const wallPost = await wallPostModel.findOneAndUpdate(user, req.body);
+    const { id } = req.params;
+    const wallPost = await wallPostModel.findByIdAndUpdate(id, req.body, {
+      useFindAndModify: false,
+    });
     wallPost.save();
     res.json({
       old: wallPost,
@@ -87,6 +93,8 @@ router.put("/wallposts/:user", async (req, res) => {
     res.send("An error occured");
   }
 });
+
+/** ----DELETE----- */
 
 router.delete("/wallposts/:user", async (req, res) => {
   try {
