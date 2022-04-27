@@ -40,7 +40,9 @@ const Header = () => {
             </>
               ) : (
                 <>
-                <span style={{fontSize: "2rem"}}>😈 </span>
+                <div style={{border: "2px solid white", height: "3rem", width: "3rem", borderRadius: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <span style={{fontSize: "2rem", marginTop: "7px"}}>😈 </span>
+                </div>
                 <button onClick={() => signOutFunction()} style={btn}>Sign Out</button>
             </>
               )}
