@@ -4,6 +4,7 @@ import { PostComponent } from '../PostComponent';
 import { makeReq } from '../../helper';
 import { useLocation } from 'react-router-dom';
 import { useUserContext } from '../context/UserContext';
+import ErrorBoundary from '../ErrorBoundary';
 export interface IWallPost {
   username: string;
   body: string;
@@ -28,7 +29,6 @@ const StartPage: FC = () => {
   }, [location]);
 
   return (
-
     <div>
       {wallPosts.map((post) => {
         return <PostComponent key={post._id} post={post} />;
