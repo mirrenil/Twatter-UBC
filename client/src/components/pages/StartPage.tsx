@@ -3,6 +3,7 @@ import NewPost from '../NewPost';
 import { PostComponent } from '../PostComponent';
 import { makeReq } from '../../helper';
 import { useLocation } from 'react-router-dom';
+import { useUserContext } from '../context/UserContext';
 export interface IWallPost {
   username: string;
   body: string;
@@ -14,31 +15,35 @@ const StartPage: FC = () => {
   const [isNewPostOpen, setIsNewPostOpen] = useState(false);
   const [wallPosts, setWallPosts] = useState<IWallPost[]>([]);
   const location = useLocation();
-
+  const { isLoggedIn } = useUserContext();
 
   useEffect(() => {
     const fetchWallPostsData = async () => {
-        let response = await makeReq('/wallposts', 'GET');
-        console.log(response)
-        setWallPosts(response);
-        return;
-      };
+      let response = await makeReq('/wallposts', 'GET');
+      console.log(response);
+      setWallPosts(response);
+      return;
+    };
     fetchWallPostsData();
   }, [location]);
 
   return (
-    <div> 
+    <div>
+      {wallPosts.map((post) => {
+        return <PostComponent key={post._id} post={post} />;
+      })}
+      {!isLoggedIn ? (
+        null
+      ) : (
+        <button style={btn} onClick={() => setIsNewPostOpen(true)}>
+          +
+        </button>
+      )}
 
-        {wallPosts.map((post) => {
-          return <PostComponent key={post._id} post={post} />;
-        })}
-     
-          <button style={btn} onClick={() => setIsNewPostOpen(true)}>+</button>
-          <NewPost
-            open={isNewPostOpen}
-            onClose={() => setIsNewPostOpen(false)}
-          ></NewPost>
-
+      <NewPost
+        open={isNewPostOpen}
+        onClose={() => setIsNewPostOpen(false)}
+      ></NewPost>
     </div>
   );
 };
