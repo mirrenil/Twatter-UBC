@@ -1,7 +1,7 @@
-import React, { CSSProperties, useEffect, useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import WallPostButtons from './WallPostButtons';
-import { makeReq } from '../helper';
 import {IWallPost} from './pages/StartPage'
+import { useUserContext } from './context/UserContext';
 
 interface Props {
   post: IWallPost,
@@ -10,16 +10,19 @@ interface Props {
 
 export const PostComponent = (props: Props) => {
   const [isEdit, setIsEdit] = useState(false);
+  const { currentUser } = useUserContext();
 
   const handleEditState = () => {
     setIsEdit(true);
     console.log(isEdit);
   };
 
+
+
   return (
     <div style={rootstyle}>
       <div style={postHeaderStyle}>
-        <h6 style={{ fontSize: '2rem', margin: 0 }}>{props.post.user}</h6>
+        <h6 style={{ fontSize: '2rem', margin: 0 }}>{props.post.username}</h6>
         <p style={{}}>{props.post.date}</p>
       </div>
       <div>

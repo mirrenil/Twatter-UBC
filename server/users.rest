@@ -6,7 +6,7 @@ GET http://localhost:3001/users
 
 GET http://localhost:3001/users/
 
-###
+### CHECK IF USER IS SIGNED IN BELOW
 
 GET http://localhost:3001/users/authenticate
 

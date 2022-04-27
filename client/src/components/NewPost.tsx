@@ -1,26 +1,53 @@
-import { CSSProperties, FormEvent, FormEventHandler, useState } from 'react';
+import { CSSProperties, FormEvent, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import { makeReq } from '../helper';
+import { useUserContext } from './context/UserContext';
 
-
-// interface Props {
-//   open: boolean,
-//   onClose: () => any
-// }
+/*
+interface Props {
+  open: boolean,
+  onClose: () => any
+} */
 
 function NewPost({ open, onClose }) {
-  const [postBody, setPostBody] = useState<string>("");
+        const [isLoggedIn, setIsLoggedIn] = useState(false);
+        // const [currentUser, setCurrentUser] = useState('');
+        const [postBody, setPostBody] = useState<string>('');
+        const [newPost, setNewPost] = useState({});
+        const navigate = useNavigate();
+        const {currentUser} = useUserContext();
+
+
   if (!open) return null;
 
-  const addNewPost = async () => {
-      let response = await makeReq('/users/authenticate', 'GET');
-      console.log(response);
+
+
+  const addNewPost = async (currentUser, postBody: string) => {
+    const newWallPost = { username: currentUser, body: postBody};
+    setNewPost({ currentUser, postBody})
+      let response = await makeReq('/wallposts/newpost', "POST", newWallPost);
+      alert(response)
+        setTimeout(() => {
+          navigate('/');
+        }, 1000);
+        return;
   }
-  
+  //  const addNewPost = async (postBody) => {
+  //   const newWallPost = { user: currentUser, date: new Date(), body: postBody }
+  //   setNewPost({currentUser, postBody})
+  //   let response = await makeReq("/wallposts/newpost", "POST", newWallPost);
+  //   console.log(response);
+  //   setTimeout(() => {
+  //     navigate("/");
+  //   }, 1000);
+
+  // };
+
   const handleOnClickPost = (e: FormEvent) => {
+    console.log('handleonclickpost');
     e.preventDefault();
-    addNewPost();
-    console.log(postBody);
+    addNewPost(currentUser, postBody);
     return
   }
 
@@ -33,8 +60,9 @@ function NewPost({ open, onClose }) {
       <div style={overlayStyles} />
       <div style={modalStyles}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <h2>SHARE SOME TWATTER</h2>
-          <form action="" onSubmit={handleOnClickPost}>
+          <h2 style={{fontFamily: "Permanent Marker, cursive"}}>SHARE SOME TWATTER</h2>
+          <h4 style={{fontFamily: "Permanent Marker, cursive"}}>{currentUser}</h4>
+          <form onSubmit={handleOnClickPost}>
           <input
             style={{ width: '70%', height: '100px', border: 'none' }}
             type="text"
@@ -45,11 +73,10 @@ function NewPost({ open, onClose }) {
             placeholder='Any secrets you want to share?...'
             required
           />
-          <button style={submitButtonStyle} type="submit" >Twat</button>
+          <button  style={submitButtonStyle} type="submit" >Twat</button>
           </form>
         </div>
-        <button onClick={onClose} style={closeButtonStyle}>
-          X{/* <CloseIcon style={{ color: "#333" }} /> */}
+        <button onClick={onClose} style={closeButtonStyle}>X
         </button>
       </div>
     </>,
@@ -99,7 +126,8 @@ const submitButtonStyle: CSSProperties = {
   color: "white",
   backgroundColor: "orange",
   border: 'none',
-  fontSize: "1.3rem"
-}
+  fontSize: "1.3rem",
+  fontFamily: "Permanent Marker, cursive"
+};
 
 export default NewPost;

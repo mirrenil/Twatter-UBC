@@ -12,19 +12,18 @@ Content-Type: application/json
 
 {
     "username": "Ragny",
-    "date": "",
     "body": "Lång dag på jobbet. USCH! Jag längtar efter melodikrysset. Mvh Ragny"
 
 }
 
-###
+### PUT STILL NOT UPDATING CORRECTLY
 
 
 PUT http://localhost:3001/wallposts/Kalaspuff
 Content-Type: application/json
 
     {
-    "user": "Lolli",
+    "username": "Lolli",
     "date": "12/10/22",
     "body": "Tjo bloggen! Detta är mitt första inlägg, glöm inte att följa mig på youtube!!"
 
@@ -33,5 +32,5 @@ Content-Type: application/json
 ###
 
 
-DELETE http://localhost:3001/wallposts/granprsn
+DELETE http://localhost:3001/wallposts/Ragny
 

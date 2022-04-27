@@ -4,6 +4,8 @@ import Header from "./Header";
 
 const Layout = () => {
   window.scrollTo(0, 0);
+
+  console.log('layyyyout')
   return (
     <div>
       <Header />

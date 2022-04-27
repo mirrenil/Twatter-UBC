@@ -1,6 +1,5 @@
 import React, {
   createContext,
-  FC,
   useContext,
   useEffect,
   useState,
@@ -8,57 +7,92 @@ import React, {
 import { useNavigate } from 'react-router-dom';
 import { makeReq } from '../../helper';
 
+
+interface ICurrentUser {
+  username: string,
+  password: string
+}
 interface IUserContextValue {
  isLoggedIn: boolean,
- logIn: (username: string, password: string) => void;
-//  signUp: (username: string, email: string, password: string) => void;
+ setIsLoggedIn,
+ logIn,
+ signOut,
+ currentUser: ICurrentUser | any
 }
 
 export const UserContext = createContext<IUserContextValue>({
   isLoggedIn: false,
-  logIn: () => "",
-  // signUp: () => "",
-});
+  setIsLoggedIn: () => false,
+  logIn: () => '',
+  signOut: () => "",
+  currentUser: {
+    username: "",
+  }
+})
 
+
+ const UserProvider = (props) => {
+  // const [newUser, setNewUser] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState<string>("Not signed in!");
+
+  const navigate = useNavigate();
+
+    
+  
+  // useEffect(() => {
+  //   console.log('useEffect in context is running')
+  //   const getLoggedInUser = async () => {
+  //     try {
+  //       let response = await makeReq('/login', 'GET');
+  //       const { user } = response;
+  //       //setIsLoggedIn(true);
+  //       console.log('logged in');
+  //     } catch (err) {
+  //       console.log(err)
+  //       return;
+  //     }
+  //   };
+  //   getLoggedInUser();
+  // }, [isLoggedIn]);
+
+
+
+  const logIn = async (username: string, password: string) => {
+    console.log(username, password);
+    const user = { username, password };
+    let response = await makeReq("/login", "POST", user);
+    setIsLoggedIn(true);
+    setCurrentUser(username);
+    console.log(response);
+    console.log(isLoggedIn)
+    console.log(currentUser);
+    setTimeout(() => {
+        console.log()
+        // navigate('/');
+    }, 1000);
+  }
+
+  const signOut = async () => {
+    let response = await makeReq("/logout", "DELETE");
+    console.log(response);
+    setIsLoggedIn(false);
+    setTimeout(() => {
+      window.location.reload();
+      navigate('/')
+    
+    }, 2000);
+  }
+
+
+  return (
+  <UserContext.Provider
+   value={{ isLoggedIn, setIsLoggedIn, currentUser, logIn, signOut }}>
+     {props.children}
+   </UserContext.Provider>
+  );
+};
 export function useUserContext() {
   return useContext(UserContext);
 }
-
-const UserProvider: FC = (props) => {
-  const navigate = useNavigate();
-  const [newUser, setNewUser] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const getLoggedInUser = async () => {
-      try {
-        let response = makeReq('/login', 'GET');
-        console.log(response);
-      } catch (err) {
-        console.log(err);
-        return;
-      }
-    };
-    getLoggedInUser();
-  }, []);
-
-/*   const logIn = async (username, password) => {
-      const user = { username, password };
-      let response = await makeReq("/login", "POST", user);
-      console.log(response);
-      return response;
-  }
- */
-  /*  const signUp = async (username, email, password) => {
-     console.log(username, email, password);
-    const newUser = { username, email, password };
-    let response = await makeReq("users/register", "POST", newUser);
-    console.log(response);
-    setTimeout(() => {
-      setNewUser(true);
-      navigate('/startpage');
-    }, 1000);
-  } */
-
-  return <UserContext.Provider value={{ isLoggedIn, logIn }}></UserContext.Provider>;
-};
+export default UserProvider;

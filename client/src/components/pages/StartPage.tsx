@@ -2,11 +2,9 @@ import React, { CSSProperties, FC, useEffect, useState } from 'react';
 import NewPost from '../NewPost';
 import { PostComponent } from '../PostComponent';
 import { makeReq } from '../../helper';
-// import SignUp from '../SignUp';
-
-
+import { useLocation } from 'react-router-dom';
 export interface IWallPost {
-  user: string;
+  username: string;
   body: string;
   date: string;
   _id: string;
@@ -15,24 +13,21 @@ export interface IWallPost {
 const StartPage: FC = () => {
   const [isNewPostOpen, setIsNewPostOpen] = useState(false);
   const [wallPosts, setWallPosts] = useState<IWallPost[]>([]);
-  const [user, setUser] = useState();
-  const blert = [1, 2, 3];
+  const location = useLocation();
 
-  const fetchWallPostsData = async () => {
-    let response = await makeReq('/wallposts', 'GET');
-    console.log(response);
-    setWallPosts(response);
-    return;
-  };
 
   useEffect(() => {
+    const fetchWallPostsData = async () => {
+        let response = await makeReq('/wallposts', 'GET');
+        console.log(response)
+        setWallPosts(response);
+        return;
+      };
     fetchWallPostsData();
-  }, []);
-
-  console.log(wallPosts);
+  }, [location]);
 
   return (
-    <div>
+    <div> 
 
         {wallPosts.map((post) => {
           return <PostComponent key={post._id} post={post} />;

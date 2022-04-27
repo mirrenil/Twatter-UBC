@@ -40,7 +40,7 @@ const modalStyles: CSSProperties = {
   flexDirection: 'column',
   justifyContent: 'center',
   height: '400px',
-}
+};
 
 const overlayStyles: CSSProperties = {
   position: "fixed",
