@@ -55,13 +55,19 @@ export const PostComponent = (props: Props) => {
        <div>
         {props.post.body}
       </div>
+
      ) : (
        <form onSubmit={handleOnSubmit}>
          <input type="text" value={body} onChange={(e) => handleOnChange(e)} />
        </form>
      )}
 
-      <WallPostButtons setEdit={handleEditState} />
+      {currentUser === props.post.username ? (
+        <WallPostButtons setEdit={handleEditState} />
+      ):(
+        null
+      )}
+      
     </div>
   );
 };
