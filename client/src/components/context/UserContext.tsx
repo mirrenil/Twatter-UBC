@@ -20,37 +20,46 @@ export const UserContext = createContext<IUserContextValue>({
   logIn: () => '',
   signOut: () => '',
   currentUser: {
-    username: "",
-  }
-  
-})
+    username: '',
+  },
+});
 
- const UserProvider = (props) => {
+const UserProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<string>("Not signed in!");
+  const [currentUser, setCurrentUser] = useState<string>();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (currentUser) {
+      localStorage.setItem('user', currentUser);
+    } else {
+      console.log('no found users');
+    }
+  }, [currentUser]);
 
-
+  useEffect(() => {
+    const found = localStorage.getItem('user');
+    if (found) {
+      setCurrentUser(found);
+      setIsLoggedIn(true);
+    } else {
+      console.log('not found');
+    }
+  }, [window.onload]);
 
   const logIn = async (username: string, password: string) => {
     const user = { username, password };
     let response = await makeReq('/login', 'POST', user);
     setIsLoggedIn(true);
     setCurrentUser(username);
-    setTimeout(() => {
-
-    }, 1000);
   };
 
   const signOut = async () => {
-    let response = await makeReq("/logout", "DELETE");
-
+    let response = await makeReq('/logout', 'DELETE');
+    localStorage.removeItem('user');
     setIsLoggedIn(false);
-    setTimeout(() => {
-      window.location.reload();
-      navigate('/');
-    }, 2000);
+
+    window.location.reload();
   };
 
   return (

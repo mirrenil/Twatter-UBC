@@ -1,13 +1,12 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import WallPostButtons from './WallPostButtons';
-import {IWallPost} from './pages/StartPage'
+import { IWallPost } from './pages/StartPage';
 import { useUserContext } from './context/UserContext';
 import { makeReq } from '../helper';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
-  post: IWallPost,
-
+  post: IWallPost;
 }
 
 export const PostComponent = (props: Props) => {
@@ -22,29 +21,32 @@ export const PostComponent = (props: Props) => {
 
   const handleOnChange = (e) => {
     setBody(e.target.value);
-  }
+  };
 
   const handleOnSubmit = () => {
     props.post.body = body;
     updateWallPost(body);
     setIsEdit(false);
-  }
+  };
 
   const updateWallPost = async (body: string) => {
-    const newPostBody = {body: body, username: currentUser}
-    let response = await makeReq(`/wallposts/${props.post._id}`, "PUT", newPostBody)
-    
+    const newPostBody = { body: body, username: currentUser };
+    let response = await makeReq(
+      `/wallposts/${props.post._id}`,
+      'PUT',
+      newPostBody
+    );
     setTimeout(() => {
-      navigate('/')
+      navigate('/');
     }, 1000);
   };
 
   const deletePost = async () => {
-    let response = await makeReq(`/wallposts/${props.post._id}`, "DELETE")
+    let response = await makeReq(`/wallposts/${props.post._id}`, 'DELETE');
     setTimeout(() => {
-      navigate('/')
+      navigate('/');
     }, 1000);
-  }
+  };
 
   return (
     <div style={rootstyle}>
@@ -53,23 +55,16 @@ export const PostComponent = (props: Props) => {
         <p style={{}}>{props.post.date}</p>
       </div>
 
-     {!isEdit ? (
-       <div>
-        {props.post.body}
-      </div>
-
-     ) : (
-       <form onSubmit={handleOnSubmit}>
-         <input type="text" value={body} onChange={(e) => handleOnChange(e)} />
-       </form>
-     )}
-
+      {!isEdit ? (
+        <div>{props.post.body}</div>
+      ) : (
+        <form onSubmit={handleOnSubmit}>
+          <input type="text" value={body} onChange={(e) => handleOnChange(e)} />
+        </form>
+      )}
       {currentUser === props.post.username ? (
         <WallPostButtons deletePost={deletePost} setEdit={handleEditState} />
-      ):(
-        null
-      )}
-      
+      ) : null}
     </div>
   );
 };
