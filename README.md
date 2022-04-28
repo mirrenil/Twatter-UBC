@@ -1,6 +1,6 @@
 # Twatter - User Based Content
 
-## Our vision was to create a website where users anonymously can share their thought and opinions. A visitor can see the feed without creating an account but then they can't make any posts. If they wish to share posts they would have to sign up and sign in. The user can edit and remove their own posts.
+## Our vision was to create a website where users anonymously can share their thought and opinions. A visitor can see the feed without creating an account but they can't make any posts. If they wish to share posts they would have to sign up and sign in. The user can only edit and remove their own posts.
 
 
 Getting started
