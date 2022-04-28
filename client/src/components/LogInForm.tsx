@@ -1,9 +1,6 @@
-import { CSSProperties, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { CSSProperties } from 'react';
 import '../App.css';
-import { makeReq } from '../helper';
 import { useUserContext } from './context/UserContext';
-// import LogIn from "./LogIn";
 import useSignIn from './useSignIn';
 
 export interface LoggedInUser {
@@ -54,13 +51,13 @@ const LogInForm = ({ submitForm }) => {
   );
 };
 const submitButtonStyle: CSSProperties = {
-    height: '2.5rem',
-    width: '5rem',
-    color: "white",
-    backgroundColor: "orange",
-    border: 'none',
-    fontSize: "1.3rem",
-    fontFamily: "Permanent Marker, cursive"
-  };
+  height: '2.5rem',
+  width: '5rem',
+  color: 'white',
+  backgroundColor: 'orange',
+  border: 'none',
+  fontSize: '1.3rem',
+  fontFamily: 'Permanent Marker, cursive',
+};
 
 export default LogInForm;

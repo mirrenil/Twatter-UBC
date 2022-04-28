@@ -27,20 +27,18 @@ router.get('/users', async (req, res) => {
     res.json(users);
   } catch (err) {
     console.log(err);
-    res.send('An error occured');
+    res.json('An error occured');
   }
 });
 
-
 /** ---ONE USER----- */
-router.get("/users/:username", async (req, res) => {
-
+router.get('/users/:username', async (req, res) => {
   try {
     const users = await userModel.findOne({});
     res.json(users);
   } catch (err) {
     console.log(err);
-    res.send('An error occured');
+    res.json('An error occured');
   }
 });
 
@@ -48,8 +46,7 @@ router.get("/users/:username", async (req, res) => {
 
 /** ----CREATE A NEW TWAT---- */
 
-router.post("/users/register", async (req, res) => {
-
+router.post('/users/register', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = new userModel({
@@ -72,14 +69,12 @@ router.post("/users/register", async (req, res) => {
 /** ----POST----- */
 /** ----LOG IN---- */
 
-
-router.post("/login", async (req, res) => {
-
+router.post('/login', async (req, res) => {
   const user = await userModel.findOne({ username: req.body.username });
   if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
     return res
       .status(401)
-      .send('Sorry TWAT! Wrong username or password. Try again!');
+      .json('Sorry TWAT! Wrong username or password. Try again!');
   }
   if (req.session.id) {
     return res.json('Idiot! You are already signed in');
@@ -103,10 +98,10 @@ router.put('/users/:username', async (req, res) => {
     });
   } catch (err) {
     if (err.code === 11000) {
-      res.send('Username already exists');
+      res.json('Username already exists');
       return;
     }
-    res.send('An error occured');
+    res.json('An error occured');
   }
 });
 
@@ -118,12 +113,12 @@ router.delete('/users/:username', async (req, res) => {
     const { username } = req.params;
     const removedUser = await userModel.findOneAndRemove(username);
     if (!removedUser) {
-      res.send('User not found');
+      res.json('User not found');
       return;
     }
     res.json(removedUser);
   } catch (err) {
-    res.send('An error occured');
+    res.json('An error occured');
   }
 });
 
@@ -141,7 +136,7 @@ router.delete('/logout', (req, res) => {
 router.get('/account/login', (req, res) => {
   // Check if we are authorized (e.g logged in)
   if (!req.session.id) {
-    return res.status(401).send('You are not logged in');
+    return res.status(401).json('You are not logged in');
   }
   // Send info about the session (a cookie stored on the clinet)
   res.json(req.session);

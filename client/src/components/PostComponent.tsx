@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import WallPostButtons from './WallPostButtons';
 import { IWallPost } from './pages/StartPage';
 import { useUserContext } from './context/UserContext';
@@ -59,7 +59,7 @@ export const PostComponent = (props: Props) => {
         <div>{props.post.body}</div>
       ) : (
         <form onSubmit={handleOnSubmit}>
-          <input type="text" value={body} onChange={(e) => handleOnChange(e)} />
+          <input style={{height: "5rem", width: "20rem"}} type="text" value={body} onChange={(e) => handleOnChange(e)} />
         </form>
       )}
       {currentUser === props.post.username ? (

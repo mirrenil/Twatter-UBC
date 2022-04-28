@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import LogInForm from './LogInForm';
-import StartPage from './pages/StartPage';
 import SignedInSuccess from './SignedInSuccess';
 
 const LogIn = () => {
