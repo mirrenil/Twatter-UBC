@@ -1,8 +1,8 @@
-import userModel from "./../models/user.model.js";
-import express from "express";
-import bcrypt from "bcrypt";
-import cookieSession from "cookie-session";
-import { v4 as uuid } from "uuid";
+import userModel from './../models/user.model.js';
+import express from 'express';
+import bcrypt from 'bcrypt';
+import cookieSession from 'cookie-session';
+import { v4 as uuid } from 'uuid';
 
 export const router = express.Router();
 router.use(express.json());
@@ -10,8 +10,8 @@ router.use(express.json());
 /** Setup secure cookie */
 router.use(
   cookieSession({
-    name: "session",
-    secret: "k3y",
+    name: 'session',
+    secret: 'k3y',
     secure: false,
     maxAge: 1000 * 100,
     httpOnly: true,
@@ -21,30 +21,35 @@ router.use(
 /** ----GET----- */
 /** ---ALL USERS----- */
 
-router.get("/users", async (req, res) => {
+router.get('/users', async (req, res) => {
   try {
     const users = await userModel.find({});
     res.json(users);
   } catch (err) {
     console.log(err);
-    res.send("An error occured");
+    res.send('An error occured');
   }
 });
 
+
 /** ---ONE USER----- */
 router.get("/users/:username", async (req, res) => {
+
   try {
     const users = await userModel.findOne({});
     res.json(users);
   } catch (err) {
     console.log(err);
-    res.send("An error occured");
+    res.send('An error occured');
   }
 });
 
 /** ----POST----- */
+
 /** ----CREATE A NEW TWAT---- */
+
 router.post("/users/register", async (req, res) => {
+
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = new userModel({
@@ -58,24 +63,26 @@ router.post("/users/register", async (req, res) => {
     );
   } catch (err) {
     if (err.code === 11000) {
-      res.json("Username already exists");
+      res.json('Username already exists');
       return;
     }
-    res.json("An error occured");
+    res.json('An error occured');
   }
 });
 /** ----POST----- */
 /** ----LOG IN---- */
 
+
 router.post("/login", async (req, res) => {
+
   const user = await userModel.findOne({ username: req.body.username });
   if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
     return res
       .status(401)
-      .send("Sorry TWAT! Wrong username or password. Try again!");
+      .send('Sorry TWAT! Wrong username or password. Try again!');
   }
   if (req.session.id) {
-    return res.json("Idiot! You are already signed in");
+    return res.json('Idiot! You are already signed in');
   }
   req.session.id = uuid();
   req.session.email = req.body.email;
@@ -85,7 +92,7 @@ router.post("/login", async (req, res) => {
 /** ---- PUT ----- */
 /** ---- UPDATE ----- */
 
-router.put("/users/:username", async (req, res) => {
+router.put('/users/:username', async (req, res) => {
   try {
     const { username } = req.params;
     const user = await userModel.findOneAndUpdate(username, req.body);
@@ -96,45 +103,45 @@ router.put("/users/:username", async (req, res) => {
     });
   } catch (err) {
     if (err.code === 11000) {
-      res.send("Username already exists");
+      res.send('Username already exists');
       return;
     }
-    res.send("An error occured");
+    res.send('An error occured');
   }
 });
 
 /** ---- DELETE ----- */
 /** ---- DELETE USER ----- */
 
-router.delete("/users/:username", async (req, res) => {
+router.delete('/users/:username', async (req, res) => {
   try {
     const { username } = req.params;
     const removedUser = await userModel.findOneAndRemove(username);
     if (!removedUser) {
-      res.send("User not found");
+      res.send('User not found');
       return;
     }
     res.json(removedUser);
   } catch (err) {
-    res.send("An error occured");
+    res.send('An error occured');
   }
 });
 
 /** ---- SIGN OUT ----- */
 
-router.delete("/logout", (req, res) => {
+router.delete('/logout', (req, res) => {
   if (!req.session.id)
     return res
       .status(401)
       .json("Hey dummy! You can't log out when you are not logged in...");
   req.session = null;
-  res.json("You are now logged out.");
+  res.json('You are now logged out.');
 });
 
-router.get("/account/login", (req, res) => {
+router.get('/account/login', (req, res) => {
   // Check if we are authorized (e.g logged in)
   if (!req.session.id) {
-    return res.status(401).send("You are not logged in");
+    return res.status(401).send('You are not logged in');
   }
   // Send info about the session (a cookie stored on the clinet)
   res.json(req.session);
