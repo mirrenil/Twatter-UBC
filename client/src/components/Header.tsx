@@ -12,10 +12,6 @@ const Header = () => {
   const { isLoggedIn, currentUser, setIsLoggedIn, signOut } = useUserContext();
 
 
-  console.log(isLoggedIn)
-
-  console.log(currentUser);
-
   const signOutFunction = () => {
     setIsLogInOpen(false);
     signOut();
@@ -37,7 +33,7 @@ const Header = () => {
               <SignUpComponent open={isSignedInOpen} onClose={() => setIsSignedInOpen(false)} />
             </>
               ) : (
-                <>
+            <>
                 <div style={{display: "flex" }}>
                 <span style={{color: "white", fontSize: "1.5rem", margin: "1rem"}}>{currentUser}</span>
                 <div style={{border: "2px solid white", height: "3rem", width: "3rem", borderRadius: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
@@ -46,7 +42,6 @@ const Header = () => {
                 </div>
                 <button onClick={() => signOutFunction()} style={btn}>Sign Out</button>
             </>
-           
               )}
                </div>
       </div>

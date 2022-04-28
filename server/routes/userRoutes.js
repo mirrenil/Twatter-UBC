@@ -19,6 +19,7 @@ router.use(
 );
 
 /** ----GET----- */
+/** ---ALL USERS----- */
 
 router.get("/users", async (req, res) => {
   try {
@@ -30,6 +31,7 @@ router.get("/users", async (req, res) => {
   }
 });
 
+/** ---ONE USER----- */
 router.get("/users/:username", async (req, res) => {
   try {
     const users = await userModel.findOne({});
@@ -40,21 +42,9 @@ router.get("/users/:username", async (req, res) => {
   }
 });
 
-// router.get("users/authenticate", async (req, res) => {
-//   try {
-//     const signedInUser = await userModel.findOne({});
-//     res.json(signedInUser);
-//     console.log(req.session);
-//   } catch (err) {
-//     console.log(err);
-//     res.send("An error occured");
-//   }
-// });
-
 /** ----POST----- */
 /** ----CREATE A NEW TWAT---- */
 router.post("/users/register", async (req, res) => {
-  console.log("HEJ");
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = new userModel({
@@ -62,7 +52,6 @@ router.post("/users/register", async (req, res) => {
       password: hashedPassword,
       email: req.body.email,
     });
-    console.log(user);
     await user.save({ username: req.body.username, password: hashedPassword });
     return res.json(
       `A new TWAT with username '${user.username}' has signed up!`
@@ -79,9 +68,7 @@ router.post("/users/register", async (req, res) => {
 /** ----LOG IN---- */
 
 router.post("/login", async (req, res) => {
-  console.log("Signed in!");
   const user = await userModel.findOne({ username: req.body.username });
-  console.log(user);
   if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
     return res
       .status(401)
@@ -96,6 +83,7 @@ router.post("/login", async (req, res) => {
   res.json(`'${user.username}' just logged in!!`);
 });
 /** ---- PUT ----- */
+/** ---- UPDATE ----- */
 
 router.put("/users/:username", async (req, res) => {
   try {
@@ -116,6 +104,7 @@ router.put("/users/:username", async (req, res) => {
 });
 
 /** ---- DELETE ----- */
+/** ---- DELETE USER ----- */
 
 router.delete("/users/:username", async (req, res) => {
   try {

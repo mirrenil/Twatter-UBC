@@ -27,7 +27,7 @@ const SignUpComponent = ({ open, onClose }) => {
         <SignUpSuccess />
       )} 
        </div>
-       <button onClick={onClose} style={{ position: "fixed", padding: '0', top: '15px', left:'5px' }}>X
+       <button onClick={onClose} style={closeButtonStyle}>X
           </button>
         </div>
       </div>
@@ -60,4 +60,14 @@ const overlayStyles: CSSProperties = {
   zIndex: 1000,
 };
 
+const closeButtonStyle: CSSProperties = {
+  position: 'fixed',
+  padding: '0',
+  top: '10px',
+  left: '5px',
+  height: "2.5rem",
+  width: "2.5rem",
+  background: "transparent",
+  border: 'none'
+};
 export default SignUpComponent;

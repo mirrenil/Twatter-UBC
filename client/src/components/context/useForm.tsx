@@ -27,7 +27,6 @@ const useForm = (submitForm) => {
         setErrors(Validation(values));
         setDataIsCorrect(true);
         submitForm(true);
-        console.log(values);
     };
 
     useEffect(() => {

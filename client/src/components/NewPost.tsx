@@ -34,7 +34,6 @@ function NewPost({ open, onClose }) {
   }
 
   const handleOnClickPost = (e: FormEvent) => {
-    console.log('handleonclickpost');
     e.preventDefault();
     addNewPost(currentUser, postBody);
     return

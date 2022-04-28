@@ -16,11 +16,8 @@ const navigate = useNavigate();
  const [user, setUser] = useState(false);
 
  const signUp = async (username, email, password) => {
-    
-     console.log(username, email, password);
     const newUser = { username, email, password };
     let response = await makeReq("users/register", "POST", newUser);
-    console.log(response);
     setTimeout(() => {
       setUser(true);
       navigate('/');

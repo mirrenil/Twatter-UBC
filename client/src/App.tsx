@@ -4,7 +4,6 @@ import StartPage from './/components/pages/StartPage';
 import UserProvider from './components/context/UserContext';
 
 const App = () => {
-  console.log('app')
   return (
     <BrowserRouter>
     <UserProvider>

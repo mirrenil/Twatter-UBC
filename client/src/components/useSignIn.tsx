@@ -25,9 +25,6 @@ export const useSignIn = (submitForm) => {
         setErrors(SignInValidate(values));
         setDataIsCorrect(true);
         submitForm(true);
-        // console.log(values);
-        // console.log(logIn)
-        
     };
 
     useEffect(() => {

@@ -18,12 +18,10 @@ export const PostComponent = (props: Props) => {
 
   const handleEditState = () => {
     setIsEdit(true);
-    console.log(isEdit);
   };
 
   const handleOnChange = (e) => {
     setBody(e.target.value);
-    console.log(e.target.value);
   }
 
   const handleOnSubmit = () => {
@@ -34,10 +32,7 @@ export const PostComponent = (props: Props) => {
 
   const updateWallPost = async (body: string) => {
     const newPostBody = {body: body, username: currentUser}
-    console.log(body);
-    console.log(props.post._id);
     let response = await makeReq(`/wallposts/${props.post._id}`, "PUT", newPostBody)
-    console.log(response)
     
     setTimeout(() => {
       navigate('/')
@@ -46,7 +41,6 @@ export const PostComponent = (props: Props) => {
 
   const deletePost = async () => {
     let response = await makeReq(`/wallposts/${props.post._id}`, "DELETE")
-    console.log(response)
     setTimeout(() => {
       navigate('/')
     }, 1000);
