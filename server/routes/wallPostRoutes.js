@@ -4,7 +4,8 @@ import Express from "express";
 export const router = Express.Router();
 router.use(Express.json());
 
-/ ----GET----- */;
+/** ---- GET ----- */
+/** ---- ALL POSTS----- */
 
 router.get("/wallposts", async (req, res) => {
   try {
@@ -18,7 +19,7 @@ router.get("/wallposts", async (req, res) => {
     res.send("Error has occured");
   }
 });
-
+/** ---- ONE POST----- */
 router.get("/wallposts/:user", async (req, res) => {
   try {
     const wallPost = await wallPostModel.findOne({ user: req.params.user });
@@ -29,28 +30,8 @@ router.get("/wallposts/:user", async (req, res) => {
   }
 });
 
-/ ----POST----- */;
-
-// router.post("/wallposts/newpost", async (req, res) => {
-//   console.log(req);
-//   console.log(res);
-//   try {
-//     const newWallPost = new wallPostModel({
-//       username: req.body.username,
-//       body: req.body.body,
-//     });
-//     console.log(newWallPost);
-//     await newWallPost.save();
-//     res.json(newWallPost);
-//   } catch (err) {
-//     if (err.code === 1100) {
-//       res.send("Something went wrong");
-//       return;
-//     }
-//     res.send("An error has occurd " + err);
-//   }
-// });
-
+/** ---- POST ----- */
+/** ---- CREATE A NEW POST---- */
 router.post("/wallposts/newpost", async (req, res) => {
   console.log("HEJ");
   try {
@@ -71,6 +52,7 @@ router.post("/wallposts/newpost", async (req, res) => {
 });
 
 /** ---- PUT ------ */
+/** ---- EDIT/ UPDATE ----- */
 
 router.put("/wallposts/:id", async (req, res) => {
   console.log(req);
@@ -95,6 +77,7 @@ router.put("/wallposts/:id", async (req, res) => {
 });
 
 /** ----DELETE----- */
+/** ---- DELETE A POST----- */
 
 router.delete("/wallposts/:id", async (req, res) => {
   try {

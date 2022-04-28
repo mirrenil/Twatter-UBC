@@ -1,6 +1,7 @@
 import React from 'react'
 import "../App.css";
 
+
 const SignUpSuccess = () => {
   return (
     <div className='container'>

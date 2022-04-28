@@ -20,31 +20,32 @@ export const UserContext = createContext<IUserContextValue>({
   logIn: () => '',
   signOut: () => '',
   currentUser: {
-    username: '',
-  },
-});
+    username: "",
+  }
+  
+})
 
-const UserProvider = (props) => {
+ const UserProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<string>('');
-  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState<string>("Not signed in!");
   const navigate = useNavigate();
 
+
+
+
   const logIn = async (username: string, password: string) => {
-    console.log(username, password);
     const user = { username, password };
     let response = await makeReq('/login', 'POST', user);
     setIsLoggedIn(true);
     setCurrentUser(username);
     setTimeout(() => {
-      console.log();
-      // navigate('/');
+
     }, 1000);
   };
 
   const signOut = async () => {
-    let response = await makeReq('/logout', 'DELETE');
-    console.log(response);
+    let response = await makeReq("/logout", "DELETE");
+
     setIsLoggedIn(false);
     setTimeout(() => {
       window.location.reload();

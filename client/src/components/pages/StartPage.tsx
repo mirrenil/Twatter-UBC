@@ -21,7 +21,6 @@ const StartPage: FC = () => {
   useEffect(() => {
     const fetchWallPostsData = async () => {
       let response = await makeReq('/wallposts', 'GET');
-      console.log(response);
       setWallPosts(response);
       return;
     };
@@ -40,7 +39,6 @@ const StartPage: FC = () => {
           +
         </button>
       )}
-
       <NewPost
         open={isNewPostOpen}
         onClose={() => setIsNewPostOpen(false)}
