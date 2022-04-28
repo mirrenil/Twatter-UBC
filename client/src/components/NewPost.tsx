@@ -21,21 +21,18 @@ function NewPost({ open, onClose }) {
 
   if (!open) return null;
 
-
-
   const addNewPost = async (currentUser, postBody: string) => {
     const newWallPost = { username: currentUser, body: postBody};
     setNewPost({ currentUser, postBody})
       let response = await makeReq('/wallposts/newpost', "POST", newWallPost);
-        setTimeout(() => {
-          navigate('/');
-        }, 1000);
+        navigate('/');
         return;
   }
 
   const handleOnClickPost = (e: FormEvent) => {
     e.preventDefault();
     addNewPost(currentUser, postBody);
+    onClose(true);
     return
   }
 
