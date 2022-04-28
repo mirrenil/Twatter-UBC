@@ -1,7 +1,7 @@
 import useForm from "./context/useForm";
 import "../App.css";
 import { makeReq } from "../helper";
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export interface User {
@@ -44,11 +44,21 @@ const navigate = useNavigate();
                  {errors.password && <p className='error'>{errors.password}</p>}
             </div>
             <div className='btn'>
-                <button onClick={() => signUp(values.username, values.email, values.password)} type="submit">Sign up</button>
+                <button onClick={() => signUp(values.username, values.email, values.password)} type="submit" style={submitButtonStyle}>Sign up</button>
             </div>
         </form>
     </div>
   )
 };
+
+const submitButtonStyle: CSSProperties = {
+    height: '2.5rem',
+    width: '5.5rem',
+    color: "white",
+    backgroundColor: "orange",
+    border: 'none',
+    fontSize: "1.3rem",
+    fontFamily: "Permanent Marker, cursive"
+  };
 
 export default SignUpForm;
