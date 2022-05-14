@@ -15,7 +15,7 @@ Content-Type: application/json
 ### PUT STILL NOT UPDATING CORRECTLY
 
 
-PUT http://localhost:3001/wallposts/626959ab3c1ddb571f4494e4
+PUT http://localhost:3001/wallposts/27fab4dc92ff18c10a464a6
 Content-Type: application/json
 
 {
@@ -27,5 +27,5 @@ Content-Type: application/json
 ###
 
 
-DELETE http://localhost:3001/wallposts/Ragny
+DELETE http://localhost:3001/wallposts/627fab4dc92ff18c10a464a6
 

@@ -13,7 +13,7 @@ POST http://localhost:3001/users/register
 Content-Type: application/json
     
 {
-    "username": "zlatan",
+    "username": "zlat",
     "password": "123",
     "email": "goranpersson@myspace.com"
 }
@@ -35,14 +35,14 @@ PUT http://localhost:3001/users/granprsn
 Content-Type: application/json
     
     {
-    "username": "Göran",
+    "username": "göran",
     "password": "123",
     "email": "goranpersson@myspace.com"
     }
 
 ### DELETE A USER BELOW
 
-DELETE http://localhost:3001/users/granprsn
+DELETE http://localhost:3001/users/zlatan
 
 ### SIGN OUT
 

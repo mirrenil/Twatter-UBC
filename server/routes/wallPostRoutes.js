@@ -10,21 +10,26 @@ router.use(Express.json());
 router.get('/wallposts', async (req, res) => {
   try {
     const wallPosts = await wallPostModel.find({});
-
-    res.json(wallPosts);
+    if(wallPosts.length < 1) {
+      res.status(404).json('Seems like the wall is empty of posts :(')
+    } else {
+      res.json(wallPosts);
+    }
+    
   } catch (err) {
     console.log(err);
-    res.json('Error has occured');
+    res.status(400).json('Error has occured');
   }
 });
-/** ---- ONE POST----- */
+
+/** ---- GET ONE POST----- */
 router.get('/wallposts/:user', async (req, res) => {
   try {
     const wallPost = await wallPostModel.findOne({ user: req.params.user });
     res.json(wallPost);
   } catch (err) {
     console.log(err);
-    res.json('error has occured');
+    res.status(400).json('error has occured');
   }
 });
 
@@ -40,10 +45,10 @@ router.post('/wallposts/newpost', async (req, res) => {
     return res.json('new post has been created');
   } catch (err) {
     if (err.code === 11000) {
-      res.json('Oops try again');
+      res.status(400).json('Oops try again');
       return;
     }
-    res.json('An error occured ' + err);
+    res.status(400).json('An error occured ' + err);
   }
 });
 
@@ -63,10 +68,10 @@ router.put('/wallposts/:id', async (req, res) => {
     });
   } catch (err) {
     if (err.code === 11000) {
-      res.json('Wall post already exists');
+      res.status(400).json('Wall post already exists');
       return;
     }
-    res.json('An error occured');
+    res.status(400).json('An error occured');
   }
 });
 
@@ -78,12 +83,12 @@ router.delete('/wallposts/:id', async (req, res) => {
     const { id } = req.params;
     const removedWallPost = await wallPostModel.findByIdAndRemove(id);
     if (!removedWallPost) {
-      res.json('Wall post not found');
+      res.status(404).json('Wall post not found');
       return;
     }
     res.json(removedWallPost);
   } catch (err) {
-    res.json('An error occured');
+    res.status(400).json('An error occured');
   }
 });
 

@@ -24,10 +24,15 @@ router.use(
 router.get('/users', async (req, res) => {
   try {
     const users = await userModel.find({});
-    res.json(users);
+    console.log(users);
+    if (users.length < 1) {
+      res.status(404).json('no users found');
+    } else {
+      res.json(users);
+    }
   } catch (err) {
     console.log(err);
-    res.json('An error occured');
+    res.status(400).json('An error occured');
   }
 });
 
@@ -38,7 +43,7 @@ router.get('/users/:username', async (req, res) => {
     res.json(users);
   } catch (err) {
     console.log(err);
-    res.json('An error occured');
+    res.status(400).json('An error occured');
   }
 });
 
@@ -60,10 +65,10 @@ router.post('/users/register', async (req, res) => {
     );
   } catch (err) {
     if (err.code === 11000) {
-      res.json('Username already exists');
+      res.status(400).json('Username already exists');
       return;
     }
-    res.json('An error occured');
+    res.status(400).json('An error occured');
   }
 });
 /** ----POST----- */
@@ -77,7 +82,7 @@ router.post('/login', async (req, res) => {
       .json('Sorry TWAT! Wrong username or password. Try again!');
   }
   if (req.session.id) {
-    return res.json('Idiot! You are already signed in');
+    return res.status(409).json('Idiot! You are already signed in');
   }
   req.session.id = uuid();
   req.session.email = req.body.email;
@@ -90,18 +95,24 @@ router.post('/login', async (req, res) => {
 router.put('/users/:username', async (req, res) => {
   try {
     const { username } = req.params;
-    const user = await userModel.findOneAndUpdate(username, req.body);
-    user.save();
-    res.json({
-      old: user,
-      new: req.body,
-    });
+    if (!username || username.length < 1) {
+      res.status(400).json('Cannot continue without username');
+    } else {
+      const user = await userModel.findOneAndUpdate(username, req.body);
+      user.save();
+      res
+        .json({
+          old: user,
+          new: req.body,
+        })
+        .status(200);
+    }
   } catch (err) {
     if (err.code === 11000) {
-      res.json('Username already exists');
+      res.status(400).json('Username already exists');
       return;
     }
-    res.json('An error occured');
+    res.status(400).json('An error occured');
   }
 });
 
@@ -113,12 +124,12 @@ router.delete('/users/:username', async (req, res) => {
     const { username } = req.params;
     const removedUser = await userModel.findOneAndRemove(username);
     if (!removedUser) {
-      res.json('User not found');
+      res.status(404).json('User not found');
       return;
     }
     res.json(removedUser);
   } catch (err) {
-    res.json('An error occured');
+    res.status(400).json('An error occured');
   }
 });
 
