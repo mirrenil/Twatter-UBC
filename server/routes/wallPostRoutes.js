@@ -42,7 +42,7 @@ router.post('/wallposts/newpost', async (req, res) => {
   if (!loggedInUser) {
     return res
       .status(403)
-      .json('Nooooo stop!! You have to sign in first...stupid');
+      .json('You cant post if youre not logged in');
   }
   if (loggedInUser) {
     try {

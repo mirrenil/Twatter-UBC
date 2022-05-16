@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { makeReq } from '../../helper';
 
 interface ICurrentUser {
@@ -28,6 +28,7 @@ const UserProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<string>();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (currentUser) {
@@ -36,6 +37,26 @@ const UserProvider = (props) => {
       console.log('no found users');
     }
   }, [currentUser]);
+
+  useEffect(() => {
+    console.log(currentUser)
+ 
+
+    const fetchLoggedInUser = async () => {
+      console.log('in fetchuser')
+      try {
+      let response = await makeReq(`/login`, 'GET')
+      console.log(response)
+        console.log(response.username)
+        setCurrentUser(response.username);
+      } catch(err) {
+        
+        console.log(err)
+        return;
+      }
+    }
+    fetchLoggedInUser();
+  }, )
 
   useEffect(() => {
     const found = localStorage.getItem('user');
@@ -50,8 +71,9 @@ const UserProvider = (props) => {
   const logIn = async (username: string, password: string) => {
     const user = { username, password };
     let response = await makeReq('/login', 'POST', user);
-    setIsLoggedIn(true);
-    setCurrentUser(username);
+    alert(response)
+    navigate('/')
+ 
   };
 
   const signOut = async () => {

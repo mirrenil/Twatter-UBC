@@ -7,8 +7,6 @@ import { v4 as uuid } from 'uuid';
 export const router = express.Router();
 router.use(express.json());
 
-
-
 /** ----GET----- */
 /** ---ALL USERS----- */
 
@@ -29,13 +27,32 @@ router.get('/users', async (req, res) => {
 
 /** ---ONE USER----- */
 router.get('/users/:username', async (req, res) => {
+  const { username } = req.params;
+  console.log(username);
+
+  const user = await userModel.find({ username });
+  console.log(user);
+  if (user.length < 1)
+    return res.status(400).json('User with this username does not exist');
+
   try {
-    const users = await userModel.findOne({});
-    res.json(users);
+    res.json(user);
   } catch (err) {
     console.log(err);
     res.status(400).json('An error occured');
   }
+});
+
+/**------cookiesession------- */
+router.get('/login', (req, res) => {
+  console.log('in cookiesession');
+  
+
+  if(!req.session.user) {
+    return res.status(400).json('no user is logged in')
+  }
+  // console.log(req.session.user)
+  res.status(200).json(req.session.user);
 });
 
 /** ----POST----- */
@@ -75,7 +92,7 @@ router.post('/login', async (req, res) => {
   if (req.session.id) {
     return res.status(409).json('Idiot! You are already signed in');
   }
-  
+
   delete user.password;
   req.session.user = user;
   res.json(`'${user.username}' just logged in!!` + user);
@@ -135,12 +152,13 @@ router.delete('/logout', (req, res) => {
   res.json('You are now logged out.');
 });
 
-router.get('/account/login', (req, res) => {
-  // Check if we are authorized (e.g logged in)
-  if (!req.session.id) {
-    return res.status(401).json('You are not logged in');
-  }
-  // Send info about the session (a cookie stored on the clinet)
-  res.json(req.session);
-});
+// router.get('/account/login', (req, res) => {
+//   // Check if we are authorized (e.g logged in)
+//   if (!req.session.id) {
+//     return res.status(401).json('You are not logged in');
+//   }
+//   // Send info about the session (a cookie stored on the clinet)
+//   res.json(req.session);
+// });
+
 export default router;

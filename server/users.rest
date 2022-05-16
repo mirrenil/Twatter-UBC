@@ -1,10 +1,15 @@
 
-GET http://localhost:3001/users
+### FIND ONE USER
+GET http://localhost:3001/users/Lin
 
 
 ### FIND ALL USERS BELOW
 
 GET http://localhost:3001/users/
+
+### cookie
+
+GET http://localhost:3001/login
 
 
 ### POST FOR SIGN UP BELOW
@@ -13,7 +18,7 @@ POST http://localhost:3001/users/register
 Content-Type: application/json
     
 {
-    "username": "Lars",
+    "username": "Lin",
     "password": "123",
     "email": "lars@myspace.com"
 }
@@ -25,8 +30,8 @@ POST http://localhost:3001/login
 Content-Type: application/json
     
 {
-    "username": "Lars",
-    "password": "123"
+    "username": "linnea",
+    "password": "linnea"
 }
 
 ###
@@ -34,11 +39,11 @@ Content-Type: application/json
 PUT http://localhost:3001/users/Ragny
 Content-Type: application/json
     
-    {
+{
     "username": "TurboRagny",
     "password": "123",
     "email": "goranpersson@myspace.com"
-    }
+ }
 
 ### DELETE A USER BELOW
 
@@ -48,3 +53,4 @@ DELETE http://localhost:3001/users/zlatan
 
 DELETE http://localhost:3001/logout
 
+###
