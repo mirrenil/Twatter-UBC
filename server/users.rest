@@ -13,9 +13,9 @@ POST http://localhost:3001/users/register
 Content-Type: application/json
     
 {
-    "username": "zlat",
+    "username": "Lars",
     "password": "123",
-    "email": "goranpersson@myspace.com"
+    "email": "lars@myspace.com"
 }
 
 ### POST FOR LOG IN UP BELOW
@@ -25,17 +25,17 @@ POST http://localhost:3001/login
 Content-Type: application/json
     
 {
-    "username": "zlatan",
+    "username": "Lars",
     "password": "123"
 }
 
 ###
 
-PUT http://localhost:3001/users/granprsn
+PUT http://localhost:3001/users/Ragny
 Content-Type: application/json
     
     {
-    "username": "göran",
+    "username": "TurboRagny",
     "password": "123",
     "email": "goranpersson@myspace.com"
     }

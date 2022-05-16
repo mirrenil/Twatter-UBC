@@ -7,16 +7,7 @@ import { v4 as uuid } from 'uuid';
 export const router = express.Router();
 router.use(express.json());
 
-/** Setup secure cookie */
-router.use(
-  cookieSession({
-    name: 'session',
-    secret: 'k3y',
-    secure: false,
-    maxAge: 1000 * 100,
-    httpOnly: true,
-  })
-);
+
 
 /** ----GET----- */
 /** ---ALL USERS----- */
@@ -84,10 +75,10 @@ router.post('/login', async (req, res) => {
   if (req.session.id) {
     return res.status(409).json('Idiot! You are already signed in');
   }
-  req.session.id = uuid();
-  req.session.email = req.body.email;
-  req.session.signedInAt = new Date();
-  res.json(`'${user.username}' just logged in!!`);
+  
+  delete user.password;
+  req.session.user = user;
+  res.json(`'${user.username}' just logged in!!` + user);
 });
 /** ---- PUT ----- */
 /** ---- UPDATE ----- */
@@ -136,7 +127,7 @@ router.delete('/users/:username', async (req, res) => {
 /** ---- SIGN OUT ----- */
 
 router.delete('/logout', (req, res) => {
-  if (!req.session.id)
+  if (!req.session.user)
     return res
       .status(401)
       .json("Hey dummy! You can't log out when you are not logged in...");

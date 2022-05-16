@@ -10,12 +10,11 @@ router.use(Express.json());
 router.get('/wallposts', async (req, res) => {
   try {
     const wallPosts = await wallPostModel.find({});
-    if(wallPosts.length < 1) {
-      res.status(404).json('Seems like the wall is empty of posts :(')
+    if (wallPosts.length < 1) {
+      res.status(404).json('Seems like the wall is empty of posts :(');
     } else {
       res.json(wallPosts);
     }
-    
   } catch (err) {
     console.log(err);
     res.status(400).json('Error has occured');
@@ -36,19 +35,26 @@ router.get('/wallposts/:user', async (req, res) => {
 /** ---- POST ----- */
 /** ---- CREATE A NEW POST---- */
 router.post('/wallposts/newpost', async (req, res) => {
-  try {
-    const newPost = new wallPostModel({
-      username: req.body.username,
-      body: req.body.body,
-    });
-    await newPost.save({ username: req.body.username, body: req.body.body });
-    return res.json('new post has been created');
-  } catch (err) {
-    if (err.code === 11000) {
-      res.status(400).json('Oops try again');
-      return;
+  const loggedInUser = req.session.user;
+  console.log(req.session.user);
+  console.log(req.body.body);
+
+  if (!loggedInUser) {
+    return res
+      .status(403)
+      .json('Nooooo stop!! You have to sign in first...stupid');
+  }
+  if (loggedInUser) {
+    try {
+      const newPost = new wallPostModel({
+        username: req.session.user.username,
+        body: req.body.body,
+      });
+      await newPost.save();
+      return res.status(201).json(newPost);
+    } catch (err) {
+      return res.status(400).json('Oops try again ' + err);
     }
-    res.status(400).json('An error occured ' + err);
   }
 });
 
@@ -56,39 +62,77 @@ router.post('/wallposts/newpost', async (req, res) => {
 /** ---- EDIT/ UPDATE ----- */
 
 router.put('/wallposts/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const wallPost = await wallPostModel.findByIdAndUpdate(id, req.body, {
-      useFindAndModify: false,
-    });
-    wallPost.save();
-    res.json({
-      old: wallPost,
-      new: req.body,
-    });
-  } catch (err) {
-    if (err.code === 11000) {
-      res.status(400).json('Wall post already exists');
-      return;
-    }
-    res.status(400).json('An error occured');
+  const { id } = req.params;
+  const currentPost = await wallPostModel.findById(id);
+  const loggedInUser = req.session.user;
+
+  if (!loggedInUser) {
+    return res
+      .status(403)
+      .json('Nooooo stop!! You have to sign in first...stupid');
+  } else if (!currentPost) {
+    return res.status(400).json('no post found');
   }
+
+  if (currentPost.username === req.session.user.username) {
+    try {
+      const wallPost = await wallPostModel.findByIdAndUpdate(id, req.body, {
+        useFindAndModify: false,
+      });
+      wallPost.save();
+      res.json({
+        old: wallPost,
+        new: req.body,
+      });
+    } catch (err) {
+      return res.status(400).json('An error occured');
+    }
+  }
+
+  // try {
+
+  //   const wallPost = await wallPostModel.findByIdAndUpdate(id, req.body, {
+  //     useFindAndModify: false,
+  //   });
+  //   wallPost.save();
+  //   res.json({
+  //     old: wallPost,
+  //     new: req.body,
+  //   });
+  // } catch (err) {
+  //   if (err.code === 11000) {
+  //     res.status(400).json('Wall post already exists');
+  //     return;
+  //   }
+  //   res.status(400).json('An error occured');
+  // }
 });
 
 /** ----DELETE----- */
 /** ---- DELETE A POST----- */
 
 router.delete('/wallposts/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const removedWallPost = await wallPostModel.findByIdAndRemove(id);
-    if (!removedWallPost) {
-      res.status(404).json('Wall post not found');
-      return;
+  const { id } = req.params;
+  const currentPost = await wallPostModel.findById(id);
+  const loggedInUser = req.session.user;
+
+  if (!loggedInUser) {
+    return res.status(401).json('You must sign in first');
+  } else if (!currentPost) {
+    return res.status(400).json('no post found');
+  }
+
+  if (currentPost.username === req.session.user.username) {
+    try {
+      const removedWallPost = await wallPostModel.findByIdAndRemove(id);
+      if (!removedWallPost) {
+        res.status(404).json('no wallpost found');
+      } else {
+        return res.status(200).json('post removed');
+      }
+    } catch (err) {
+      return res.status(400).json('An error occured');
     }
-    res.json(removedWallPost);
-  } catch (err) {
-    res.status(400).json('An error occured');
   }
 });
 

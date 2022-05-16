@@ -7,25 +7,21 @@ POST http://localhost:3001/wallposts/newpost
 Content-Type: application/json
 
 {
-    "username": "Ragny",
-    "body": "Lång dag på jobbet. USCH! Jag längtar efter melodikrysset. Mvh Ragny"
-
+    "body": "Lång dag på jobbet"
 }
 
 ### PUT STILL NOT UPDATING CORRECTLY
 
 
-PUT http://localhost:3001/wallposts/27fab4dc92ff18c10a464a6
+PUT http://localhost:3001/wallposts/62824fc9d2611d3726e061d8
 Content-Type: application/json
 
 {
-    "username": "Lollipop",
-    "body": "Hej hopp!!"
-
+    "body": "Hej hopp gummisnopp"
 }
 
 ###
 
 
-DELETE http://localhost:3001/wallposts/627fab4dc92ff18c10a464a6
+DELETE http://localhost:3001/wallposts/62824fc9d2611d3726e061d8
 

@@ -21,6 +21,16 @@ const app = express();
 const PORT = 3001;
 
 app.use(express.json());
+/** Setup secure cookie */
+app.use(
+  cookieSession({
+    name: 'session',
+    secret: 'k3y',
+    secure: false,
+    maxAge: 1000 * 100,
+    httpOnly: true,
+  })
+);
 
 app.use("/", userRouter);
 app.use("/", wallPostRouter);

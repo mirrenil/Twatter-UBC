@@ -23,6 +23,7 @@ function NewPost({ open, onClose }) {
   const handleOnClickPost = (e: FormEvent) => {
     e.preventDefault();
     addNewPost(currentUser, postBody);
+    setPostBody('')
     onClose(true);
     return;
   };

@@ -29,7 +29,7 @@ const StartPage: FC = () => {
 
   return (
     <div>
-      {wallPosts.map((post) => {
+      {!wallPosts ? "No posts on the wall yet :(" : wallPosts.map((post) => {
         return <PostComponent key={post._id} post={post} />;
       })}
       {!isLoggedIn ? (
