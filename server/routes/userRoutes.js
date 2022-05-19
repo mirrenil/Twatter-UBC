@@ -28,9 +28,9 @@ router.get('/users', async (req, res) => {
 /** ---ONE USER----- */
 router.get('/users/:username', async (req, res) => {
   const { username } = req.params;
-  console.log(username);
+  console.log('username: ' + username);
 
-  const user = await userModel.find({ username });
+  const user = await userModel.find({username});
   console.log(user);
   if (user.length < 1)
     return res.status(400).json('User with this username does not exist');

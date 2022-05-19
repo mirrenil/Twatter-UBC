@@ -8,12 +8,17 @@ export interface LoggedInUser {
   password: string;
 }
 
-const LogInForm = ({ submitForm }) => {
+interface Props {
+  submitForm: Function
+}
+
+const LogInForm = ({ submitForm }: Props) => {
   const { setIsLoggedIn, isLoggedIn, logIn } = useUserContext();
 
   const { handleChange, handleFormSubmit, values, errors } =
     useSignIn(submitForm);
   return (
+    
     <div className="sign-up-container">
       <h2 className="title">Sign in</h2>
       <form onSubmit={handleFormSubmit}>

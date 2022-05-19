@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import LogInComponent from './LogInComponent';
 import SignUpComponent from './SignUpComponent';
 import shhLogo from '../shhh-logo.png';
@@ -7,7 +7,6 @@ import { useUserContext } from './context/UserContext';
 const Header = () => {
   const [isLogInOpen, setIsLogInOpen] = useState<boolean>(false);
   const [isSignedInOpen, setIsSignedInOpen] = useState<boolean>(false);
-
   const { isLoggedIn, currentUser, signOut } = useUserContext();
 
   const signOutFunction = () => {

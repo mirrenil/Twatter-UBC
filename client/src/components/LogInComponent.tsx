@@ -5,7 +5,7 @@ import LogIn from './LogIn';
 
 interface ILogInProps {
   open: boolean;
-  onClose: () => void;
+  onClose,
 }
 
 const LogInComponent = ({ open, onClose }: ILogInProps) => {
@@ -16,7 +16,7 @@ const LogInComponent = ({ open, onClose }: ILogInProps) => {
       <div style={overlayStyles}>
         <div style={modalStyles}>
           <div className="container">
-            <LogIn />
+            <LogIn onClose={() => onClose(false)}/>
           </div>
           <button onClick={onClose} style={closeButtonStyle}>
             X
