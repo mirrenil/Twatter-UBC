@@ -5,6 +5,7 @@ import { makeReq } from '../../helper';
 import { useLocation } from 'react-router-dom';
 import { useUserContext } from '../context/UserContext';
 import ErrorBoundary from '../ErrorBoundary';
+
 export interface IWallPost {
   username: string;
   body: string;
@@ -14,13 +15,16 @@ export interface IWallPost {
 
 const StartPage: FC = () => {
   const [isNewPostOpen, setIsNewPostOpen] = useState(false);
-  const [wallPosts, setWallPosts] = useState<IWallPost[]>([]);
+  const [wallPosts, setWallPosts] = useState<IWallPost[]>();
   const location = useLocation();
   const { isLoggedIn } = useUserContext();
 
   useEffect(() => {
     const fetchWallPostsData = async () => {
       let response = await makeReq('/wallposts', 'GET');
+      
+    
+      
       setWallPosts(response);
       return;
     };

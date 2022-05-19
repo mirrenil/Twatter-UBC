@@ -46,6 +46,7 @@ router.get('/users/:username', async (req, res) => {
 /**------cookiesession------- */
 router.get('/login', (req, res) => {
   console.log('in cookiesession');
+  console.log(req.session.user)
   
   if(!req.session.user) {
     return res.status(400).json('no user is logged in')
@@ -94,52 +95,53 @@ router.post('/login', async (req, res) => {
 
   delete user.password;
   req.session.user = user;
-  res.json(`'${user.username}' just logged in!!` + user);
-  console.log(user + 'logged in!!');
+  console.log(req.session.user);
+  res.json(req.session.user);
+
 });
 /** ---- PUT ----- */
 /** ---- UPDATE ----- */
 
-router.put('/users/:username', async (req, res) => {
-  try {
-    const { username } = req.params;
-    if (!username || username.length < 1) {
-      res.status(400).json('Cannot continue without username');
-    } else {
-      const user = await userModel.findOneAndUpdate(username, req.body);
-      user.save();
-      res
-        .json({
-          old: user,
-          new: req.body,
-        })
-        .status(200);
-    }
-  } catch (err) {
-    if (err.code === 11000) {
-      res.status(400).json('Username already exists');
-      return;
-    }
-    res.status(400).json('An error occured');
-  }
-});
+// router.put('/users/:username', async (req, res) => {
+//   try {
+//     const { username } = req.params;
+//     if (!username || username.length < 1) {
+//       res.status(400).json('Cannot continue without username');
+//     } else {
+//       const user = await userModel.findOneAndUpdate(username, req.body);
+//       user.save();
+//       res
+//         .json({
+//           old: user,
+//           new: req.body,
+//         })
+//         .status(200);
+//     }
+//   } catch (err) {
+//     if (err.code === 11000) {
+//       res.status(400).json('Username already exists');
+//       return;
+//     }
+//     res.status(400).json('An error occured');
+//   }
+// });
 
 /** ---- DELETE ----- */
 /** ---- DELETE USER ----- */
 
-router.delete('/users/:username', async (req, res) => {
-  try {
-    const { username } = req.params;
-    const removedUser = await userModel.findOneAndRemove(username);
-    if (!removedUser) {
-      res.status(404).json('User not found');
-      return;
-    }
-    res.json(removedUser);
-  } catch (err) {
-    res.status(400).json('An error occured');
-  }
-});
+// router.delete('/users/:username', async (req, res) => {
+//   try {
+//     const { username } = req.params;
+//     const removedUser = await userModel.findOneAndRemove(username);
+//     if (!removedUser) {
+//       res.status(404).json('User not found');
+//       return;
+//     }
+//     res.json(removedUser);
+//   } catch (err) {
+//     res.status(400).json('An error occured');
+//   }
+// });
 
 /** ---- SIGN OUT ----- */
 
@@ -150,7 +152,8 @@ router.delete('/logout', (req, res) => {
       .json("Hey dummy! You can't log out when you are not logged in...");
   req.session = null;
   console.log('logged out');
-  res.json('You are now logged out.');
+  console.log(req.session);
+  res.json(req.session);
 });
 
 // router.get('/account/login', (req, res) => {

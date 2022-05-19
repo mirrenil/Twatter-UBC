@@ -7,10 +7,6 @@ GET http://localhost:3001/users/Lin
 
 GET http://localhost:3001/users/
 
-### cookie
-
-GET http://localhost:3001/login
-
 
 ### POST FOR SIGN UP BELOW
 
@@ -36,18 +32,18 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:3001/users/Ragny
-Content-Type: application/json
+# PUT http://localhost:3001/users/Ragny
+# Content-Type: application/json
     
-{
-    "username": "TurboRagny",
-    "password": "123",
-    "email": "goranpersson@myspace.com"
- }
+# {
+#     "username": "TurboRagny",
+#     "password": "123",
+#     "email": "goranpersson@myspace.com"
+#  }
 
-### DELETE A USER BELOW
+# ### DELETE A USER BELOW
 
-DELETE http://localhost:3001/users/linnea
+# DELETE http://localhost:3001/users/linnea
 
 ### SIGN OUT
 

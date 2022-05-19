@@ -10,14 +10,10 @@ router.use(Express.json());
 router.get('/wallposts', async (req, res) => {
   try {
     const wallPosts = await wallPostModel.find({});
-    if (wallPosts.length < 1) {
-      res.status(404).json('Seems like the wall is empty of posts :(');
-    } else {
-      res.json(wallPosts);
-    }
+    res.json(wallPosts);
   } catch (err) {
     console.log(err);
-    res.status(400).json('Error has occured');
+    res.status(400).json(err);
   }
 });
 
@@ -53,7 +49,7 @@ router.post('/wallposts/newpost', async (req, res) => {
       await newPost.save();
       return res.status(201).json(newPost);
     } catch (err) {
-      return res.status(400).json('Oops try again ' + err);
+      return res.status(400).json('Why post something someone else has already posted? Be original, pls...');
     }
   }
 });
@@ -133,6 +129,8 @@ router.delete('/wallposts/:id', async (req, res) => {
     } catch (err) {
       return res.status(400).json('An error occured');
     }
+  } else {
+    res.status(403).json('U obviously cant delete someone elses post')
   }
 });
 

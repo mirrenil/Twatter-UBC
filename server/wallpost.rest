@@ -1,13 +1,13 @@
 
 GET http://localhost:3001/wallposts
 
-###
+### POST
 
 POST http://localhost:3001/wallposts/newpost
 Content-Type: application/json
 
 {
-    "body": "Lång dag på jobbet"
+    "body": "Lololllllol"
 }
 
 ### PUT STILL NOT UPDATING CORRECTLY
@@ -23,5 +23,5 @@ Content-Type: application/json
 ###
 
 
-DELETE http://localhost:3001/wallposts/62824fc9d2611d3726e061d8
+DELETE http://localhost:3001/wallposts/62825b15cb51294b8b2de4a3
 

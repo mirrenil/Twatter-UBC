@@ -7,8 +7,7 @@ const wallPostSchema = new mongoose.Schema({
   },
   body: {
     required: true,
-    type: String,
-    unique: false
+    type: String
   },
   id: {
     type: mongoose.Schema.Types.ObjectId,
