@@ -12,6 +12,7 @@ interface IUserContextValue {
   logIn;
   signOut;
   currentUser: ICurrentUser | any;
+  fetchLoggedInUser: Function;
 }
 
 export const UserContext = createContext<IUserContextValue>({
@@ -19,9 +20,8 @@ export const UserContext = createContext<IUserContextValue>({
   setIsLoggedIn: () => false,
   logIn: () => '',
   signOut: () => '',
-  currentUser: {
-    username: '',
-  },
+  currentUser: undefined,
+  fetchLoggedInUser: () => undefined,
 });
 
 const UserProvider = (props) => {
@@ -30,63 +30,77 @@ const UserProvider = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem('user', currentUser);
-    } else {
-      console.log('no found users');
-    }
-  }, [currentUser]);
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     localStorage.setItem('user', currentUser);
+  //     setIsLoggedIn(true);
+  //   } else {
+  //     console.log('no found users');
+  //   }
+  // });
 
   useEffect(() => {
-    console.log(currentUser)
- 
-
-    const fetchLoggedInUser = async () => {
-      console.log('in fetchuser')
-      try {
-      let response = await makeReq(`/login`, 'GET')
-      console.log(response)
-        console.log(response.username)
-        setCurrentUser(response.username);
-      } catch(err) {
-        
-        console.log(err)
-        return;
-      }
-    }
+    console.log('ineffect fetch logged in user');
     fetchLoggedInUser();
-  }, )
+  }, []);
 
-  useEffect(() => {
-    const found = localStorage.getItem('user');
-    if (found) {
-      setCurrentUser(found);
-      setIsLoggedIn(true);
-    } else {
-      console.log('not found');
+  // useEffect(() => {
+  //   const found = localStorage.getItem('user');
+  //   if (found) {
+  //     setCurrentUser(found);
+  //     setIsLoggedIn(true);
+  //   } else {
+  //     console.log('not found');
+  //   }
+  // }, [window.onload]);
+
+  const fetchLoggedInUser = async () => {
+    console.log(currentUser);
+    console.log('in fetchuser');
+    try {
+      let response = await makeReq(`/login`, 'GET');
+
+      if (!response.username) {
+        setIsLoggedIn(false);
+        console.log('no response.username');
+      } else {
+        console.log('user sets here');
+        setCurrentUser(response.username);
+        setIsLoggedIn(true);
+      }
+    } catch (err) {
+      console.log(err);
+      return;
     }
-  }, [window.onload]);
+  };
 
   const logIn = async (username: string, password: string) => {
     const user = { username, password };
     let response = await makeReq('/login', 'POST', user);
-    alert(response)
-    navigate('/')
- 
+    alert(response);
+    fetchLoggedInUser();
+    console.log('in logIn F');
+    navigate('/');
   };
 
   const signOut = async () => {
     let response = await makeReq('/logout', 'DELETE');
     localStorage.removeItem('user');
     setIsLoggedIn(false);
-
+    navigate('/');
     window.location.reload();
   };
 
   return (
     <UserContext.Provider
-      value={{ isLoggedIn, setIsLoggedIn, currentUser, logIn, signOut }}
+      value={{
+        isLoggedIn,
+        setIsLoggedIn,
+        currentUser,
+        logIn,
+        signOut,
+        fetchLoggedInUser,
+      }}
     >
       {props.children}
     </UserContext.Provider>

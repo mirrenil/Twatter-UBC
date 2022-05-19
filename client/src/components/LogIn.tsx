@@ -10,16 +10,19 @@ interface Props {
 
 const LogIn = ({ onClose }: Props) => {
   const [formIsSubmitted, setFormIsSubmitted] = useState<Boolean>(false);
-  const { currentUser } = useUserContext();
-  const { isSubmitValid } = useSignIn();
+  const { currentUser, isLoggedIn, fetchLoggedInUser } = useUserContext();
+  const { dataIsCorrect } = useSignIn();
+ 
+  console.log(isLoggedIn)
+  console.log('data: ' + dataIsCorrect);
+  console.log(currentUser);
 
   useEffect(() => {
-    if (formIsSubmitted) {
-      setTimeout(() => {
+    console.log(currentUser)
+    if (currentUser) {
         onClose(true);
-      }, 1000);
     }
-  }, [currentUser]);
+  }, );
 
   const submitForm = () => {
     setFormIsSubmitted(true);

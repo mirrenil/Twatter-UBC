@@ -17,9 +17,9 @@ export const useSignIn = (submitForm?) => {
     });
   };
   const handleFormSubmit = (e: FormEvent) => {
+    setDataIsCorrect(true);
     e.preventDefault();
     setErrors(SignInValidate(values));
-    setDataIsCorrect(true);
     submitForm(true);
     setIsSubmitValid(true);
   };
@@ -30,6 +30,6 @@ export const useSignIn = (submitForm?) => {
     }
   }, [errors, dataIsCorrect, submitForm]);
 
-  return { handleChange, handleFormSubmit, setIsSubmitValid, isSubmitValid, values, errors };
+  return { handleChange, handleFormSubmit, setIsSubmitValid, dataIsCorrect, values, errors };
 };
 export default useSignIn;

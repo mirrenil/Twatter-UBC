@@ -47,7 +47,6 @@ router.get('/users/:username', async (req, res) => {
 router.get('/login', (req, res) => {
   console.log('in cookiesession');
   
-
   if(!req.session.user) {
     return res.status(400).json('no user is logged in')
   }
@@ -96,6 +95,7 @@ router.post('/login', async (req, res) => {
   delete user.password;
   req.session.user = user;
   res.json(`'${user.username}' just logged in!!` + user);
+  console.log(user);
 });
 /** ---- PUT ----- */
 /** ---- UPDATE ----- */
@@ -149,6 +149,7 @@ router.delete('/logout', (req, res) => {
       .status(401)
       .json("Hey dummy! You can't log out when you are not logged in...");
   req.session = null;
+  console.log('logged out');
   res.json('You are now logged out.');
 });
 
