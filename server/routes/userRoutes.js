@@ -95,7 +95,7 @@ router.post('/login', async (req, res) => {
   delete user.password;
   req.session.user = user;
   res.json(`'${user.username}' just logged in!!` + user);
-  console.log(user);
+  console.log(user + 'logged in!!');
 });
 /** ---- PUT ----- */
 /** ---- UPDATE ----- */
