@@ -43,7 +43,7 @@ const UserProvider = (props) => {
  
 
     const fetchLoggedInUser = async () => {
-      console.log('in fetchuser')
+      //console.log('in fetchuser')
       try {
       let response = await makeReq(`/login`, 'GET')
       console.log(response)
@@ -73,7 +73,8 @@ const UserProvider = (props) => {
     let response = await makeReq('/login', 'POST', user);
     alert(response)
     navigate('/')
- 
+    setIsLoggedIn(true);
+    setCurrentUser(username);
   };
 
   const signOut = async () => {
