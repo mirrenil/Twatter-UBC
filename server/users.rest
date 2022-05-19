@@ -30,8 +30,8 @@ POST http://localhost:3001/login
 Content-Type: application/json
     
 {
-    "username": "linnea",
-    "password": "linnea"
+    "username": "Linlin",
+    "password": "linlin"
 }
 
 ###
@@ -47,7 +47,7 @@ Content-Type: application/json
 
 ### DELETE A USER BELOW
 
-DELETE http://localhost:3001/users/zlatan
+DELETE http://localhost:3001/users/linnea
 
 ### SIGN OUT
 

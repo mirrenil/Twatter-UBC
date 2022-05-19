@@ -1,14 +1,14 @@
 import { FormEvent, useEffect, useState } from 'react';
 import SignInValidate from './SignInValidate';
 
-export const useSignIn = (submitForm) => {
+export const useSignIn = (submitForm?) => {
   const [values, setValues] = useState({
     username: '',
     password: '',
   });
-
+  const [isSubmitValid, setIsSubmitValid] = useState<Boolean>(false);
   const [errors, setErrors] = useState<any>({});
-  const [dataIsCorrect, setDataIsCorrect] = useState(false);
+  const [dataIsCorrect, setDataIsCorrect] = useState<Boolean>(false);
 
   const handleChange = (event) => {
     setValues({
@@ -21,6 +21,7 @@ export const useSignIn = (submitForm) => {
     setErrors(SignInValidate(values));
     setDataIsCorrect(true);
     submitForm(true);
+    setIsSubmitValid(true);
   };
 
   useEffect(() => {
@@ -29,6 +30,6 @@ export const useSignIn = (submitForm) => {
     }
   }, [errors, dataIsCorrect, submitForm]);
 
-  return { handleChange, handleFormSubmit, values, errors };
+  return { handleChange, handleFormSubmit, setIsSubmitValid, isSubmitValid, values, errors };
 };
 export default useSignIn;
