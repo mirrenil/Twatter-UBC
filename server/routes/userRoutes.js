@@ -50,7 +50,6 @@ router.get('/login', (req, res) => {
   if (!req.session.user) {
     return res.status(400).json('no user is logged in');
   }
-  // console.log(req.session.user)
   res.status(200).json(req.session.user);
 });
 
@@ -61,7 +60,7 @@ router.post('/users/register', async (req, res) => {
   if (req.session.user) {
     return res.status(400).json('You cant be logged in if you want to create a new user')
   }
-  
+
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = new userModel({
@@ -112,49 +111,6 @@ router.post('/login', async (req, res) => {
     res.status(400).json(err);
   }
 });
-/** ---- PUT ----- */
-/** ---- UPDATE ----- */
-
-// router.put('/users/:username', async (req, res) => {
-//   try {
-//     const { username } = req.params;
-//     if (!username || username.length < 1) {
-//       res.status(400).json('Cannot continue without username');
-//     } else {
-//       const user = await userModel.findOneAndUpdate(username, req.body);
-//       user.save();
-//       res
-//         .json({
-//           old: user,
-//           new: req.body,
-//         })
-//         .status(200);
-//     }
-//   } catch (err) {
-//     if (err.code === 11000) {
-//       res.status(400).json('Username already exists');
-//       return;
-//     }
-//     res.status(400).json('An error occured');
-//   }
-// });
-
-/** ---- DELETE ----- */
-/** ---- DELETE USER ----- */
-
-// router.delete('/users/:username', async (req, res) => {
-//   try {
-//     const { username } = req.params;
-//     const removedUser = await userModel.findOneAndRemove(username);
-//     if (!removedUser) {
-//       res.status(404).json('User not found');
-//       return;
-//     }
-//     res.json(removedUser);
-//   } catch (err) {
-//     res.status(400).json('An error occured');
-//   }
-// });
 
 /** ---- SIGN OUT ----- */
 
@@ -172,14 +128,5 @@ router.delete('/logout', (req, res) => {
     res.status(400).json(err);
   }
 });
-
-// router.get('/account/login', (req, res) => {
-//   // Check if we are authorized (e.g logged in)
-//   if (!req.session.id) {
-//     return res.status(401).json('You are not logged in');
-//   }
-//   // Send info about the session (a cookie stored on the clinet)
-//   res.json(req.session);
-// });
 
 export default router;

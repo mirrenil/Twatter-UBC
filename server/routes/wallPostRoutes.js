@@ -84,24 +84,6 @@ router.put('/wallposts/:id', async (req, res) => {
       return res.status(400).json('An error occured');
     }
   }
-
-  // try {
-
-  //   const wallPost = await wallPostModel.findByIdAndUpdate(id, req.body, {
-  //     useFindAndModify: false,
-  //   });
-  //   wallPost.save();
-  //   res.json({
-  //     old: wallPost,
-  //     new: req.body,
-  //   });
-  // } catch (err) {
-  //   if (err.code === 11000) {
-  //     res.status(400).json('Wall post already exists');
-  //     return;
-  //   }
-  //   res.status(400).json('An error occured');
-  // }
 });
 
 /** ----DELETE----- */

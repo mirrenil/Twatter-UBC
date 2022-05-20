@@ -30,23 +30,8 @@ Content-Type: application/json
     "password": "123"
 }
 
-###
-
-# PUT http://localhost:3001/users/Ragny
-# Content-Type: application/json
-    
-# {
-#     "username": "TurboRagny",
-#     "password": "123",
-#     "email": "goranpersson@myspace.com"
-#  }
-
-# ### DELETE A USER BELOW
-
-# DELETE http://localhost:3001/users/linnea
-
 ### SIGN OUT
 
 DELETE http://localhost:3001/logout
 
-###
+
