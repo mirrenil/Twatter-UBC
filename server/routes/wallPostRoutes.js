@@ -12,7 +12,6 @@ router.get('/wallposts', async (req, res) => {
     const wallPosts = await wallPostModel.find({});
     res.json(wallPosts);
   } catch (err) {
-    console.log(err);
     res.status(400).json(err);
   }
 });
@@ -23,8 +22,7 @@ router.get('/wallposts/:user', async (req, res) => {
     const wallPost = await wallPostModel.findOne({ user: req.params.user });
     res.json(wallPost);
   } catch (err) {
-    console.log(err);
-    res.status(400).json('error has occured');
+    res.status(400).json(err);
   }
 });
 
@@ -32,13 +30,8 @@ router.get('/wallposts/:user', async (req, res) => {
 /** ---- CREATE A NEW POST---- */
 router.post('/wallposts/newpost', async (req, res) => {
   const loggedInUser = req.session.user;
-  console.log(req.session.user);
-  console.log(req.body.body);
-
   if (!loggedInUser) {
-    return res
-      .status(403)
-      .json('You cant post if youre not logged in');
+    return res.status(403).json('You cant post if youre not logged in');
   }
   if (loggedInUser) {
     try {
@@ -49,7 +42,11 @@ router.post('/wallposts/newpost', async (req, res) => {
       await newPost.save();
       return res.status(201).json(newPost);
     } catch (err) {
-      return res.status(400).json('Why post something someone else has already posted? Be original, pls...');
+      return res
+        .status(400)
+        .json(
+          'Why post something someone else has already posted? Be original, pls...'
+        );
     }
   }
 });
@@ -76,10 +73,12 @@ router.put('/wallposts/:id', async (req, res) => {
         useFindAndModify: false,
       });
       wallPost.save();
-      res.json({
-        old: wallPost,
-        new: req.body,
-      }).status(200);
+      res
+        .json({
+          old: wallPost,
+          new: req.body,
+        })
+        .status(200);
     } catch (err) {
       return res.status(400).json('An error occured');
     }
@@ -112,7 +111,7 @@ router.delete('/wallposts/:id', async (req, res) => {
       return res.status(400).json('An error occured');
     }
   } else {
-    res.status(403).json('U obviously cant delete someone elses post')
+    res.status(403).json('U obviously cant delete someone elses post');
   }
 });
 

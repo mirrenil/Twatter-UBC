@@ -14,8 +14,6 @@ const useForm = (submitForm) => {
     const [errors, setErrors] = useState<any>({});
     const [dataIsCorrect, setDataIsCorrect] = useState(false);
 
-    // const { signUp } = useUserContext();
-
     const handleChange = (event) => {
         setValues({
             ...values,

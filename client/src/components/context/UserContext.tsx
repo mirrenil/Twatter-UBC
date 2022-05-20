@@ -28,29 +28,23 @@ const UserProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<string>();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    console.log('in effect fetch logged in user');
     fetchLoggedInUser();
   }, []);
 
-
   const fetchLoggedInUser = async () => {
-    console.log(currentUser);
-    console.log('in fetchuser');
     try {
       let response = await makeReq(`/login`, 'GET');
 
       if (!response.username) {
         setIsLoggedIn(false);
-        console.log('no response.username');
       } else {
-        console.log('user sets here');
         setCurrentUser(response.username);
         setIsLoggedIn(true);
       }
     } catch (err) {
-      console.log(err);
       return;
     }
   };

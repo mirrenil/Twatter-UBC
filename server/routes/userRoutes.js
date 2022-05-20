@@ -10,26 +10,22 @@ router.use(express.json());
 router.get("/users", async (req, res) => {
   try {
     const users = await userModel.find({});
-    console.log(users);
     if (users.length < 1) {
       res.status(404).json("no users found");
     } else {
       res.json(users);
     }
   } catch (err) {
-    console.log(err);
-    res.status(400).json("An error occured");
+    res.status(400).json(err);
   }
 });
 
 /** ---ONE USER----- */
 router.get("/users/:username", async (req, res) => {
   const { username } = req.params;
-  console.log("username: " + username);
 
   try {
     const user = await userModel.find({ username });
-    console.log(user);
 
     if (user.length < 1) {
       return res.status(400).json("User with this username does not exist");
@@ -37,16 +33,12 @@ router.get("/users/:username", async (req, res) => {
 
     res.json(user);
   } catch (err) {
-    console.log(err);
-    res.status(400).json("An error occured");
+    res.status(400).json(err);
   }
 });
 
 /**------cookiesession------- */
 router.get("/login", (req, res) => {
-  console.log("in cookiesession");
-  console.log(req.session.user);
-
   if (!req.session.user) {
     return res.status(400).json("no user is logged in");
   }
@@ -97,8 +89,6 @@ router.post("/login", async (req, res) => {
     }
 
     if (req.session.user) {
-      console.log("req session found");
-      console.log(req.session.user);
       return res
         .status(409)
         .json(
@@ -117,7 +107,6 @@ router.post("/login", async (req, res) => {
 /** ---- SIGN OUT ----- */
 
 router.delete("/logout", (req, res) => {
-  console.log(req.session);
   try {
     if (!req.session.user) {
       return res
