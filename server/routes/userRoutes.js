@@ -58,6 +58,10 @@ router.get('/login', (req, res) => {
 
 /** ----CREATE A NEW TWAT---- */
 router.post('/users/register', async (req, res) => {
+  if (req.session.user) {
+    return res.status(400).json('You cant be logged in if you want to create a new user')
+  }
+  
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = new userModel({

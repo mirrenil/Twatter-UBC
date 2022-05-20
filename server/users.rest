@@ -14,7 +14,7 @@ POST http://localhost:3001/users/register
 Content-Type: application/json
     
 {
-    "username": "Adam",
+    "username": "Adamm",
     "password": "123",
     "email": "lars@myspace.com"
 }
