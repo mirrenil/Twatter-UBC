@@ -1,54 +1,54 @@
-import userModel from './../models/user.model.js';
-import express from 'express';
-import bcrypt from 'bcrypt';
+import userModel from "./../models/user.model.js";
+import express from "express";
+import bcrypt from "bcrypt";
 export const router = express.Router();
 router.use(express.json());
 
 /** ----GET----- */
 /** ---ALL USERS----- */
 
-router.get('/users', async (req, res) => {
+router.get("/users", async (req, res) => {
   try {
     const users = await userModel.find({});
     console.log(users);
     if (users.length < 1) {
-      res.status(404).json('no users found');
+      res.status(404).json("no users found");
     } else {
       res.json(users);
     }
   } catch (err) {
     console.log(err);
-    res.status(400).json('An error occured');
+    res.status(400).json("An error occured");
   }
 });
 
 /** ---ONE USER----- */
-router.get('/users/:username', async (req, res) => {
+router.get("/users/:username", async (req, res) => {
   const { username } = req.params;
-  console.log('username: ' + username);
+  console.log("username: " + username);
 
   try {
     const user = await userModel.find({ username });
     console.log(user);
 
     if (user.length < 1) {
-      return res.status(400).json('User with this username does not exist');
+      return res.status(400).json("User with this username does not exist");
     }
 
     res.json(user);
   } catch (err) {
     console.log(err);
-    res.status(400).json('An error occured');
+    res.status(400).json("An error occured");
   }
 });
 
 /**------cookiesession------- */
-router.get('/login', (req, res) => {
-  console.log('in cookiesession');
+router.get("/login", (req, res) => {
+  console.log("in cookiesession");
   console.log(req.session.user);
 
   if (!req.session.user) {
-    return res.status(400).json('no user is logged in');
+    return res.status(400).json("no user is logged in");
   }
   res.status(200).json(req.session.user);
 });
@@ -56,9 +56,11 @@ router.get('/login', (req, res) => {
 /** ----POST----- */
 
 /** ----CREATE A NEW TWAT---- */
-router.post('/users/register', async (req, res) => {
+router.post("/users/register", async (req, res) => {
   if (req.session.user) {
-    return res.status(400).json('You cant be logged in if you want to create a new user')
+    return res
+      .status(400)
+      .json("You cant be logged in if you want to create a new user");
   }
 
   try {
@@ -74,33 +76,33 @@ router.post('/users/register', async (req, res) => {
     );
   } catch (err) {
     if (err.code === 11000) {
-      res.status(400).json('Username already exists');
+      res.status(400).json("Username already exists");
       return;
     }
-    res.status(400).json('An error occured');
+    res.status(400).json("An error occured");
   }
 });
 /** ----POST----- */
 /** ----LOG IN---- */
 
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
-    const user = await userModel.findOne({ username: req.body.username });
-    console.log('FOUND USER: ' + user);
-
+    const user = await userModel
+      .findOne({ username: req.body.username })
+      .select("+password");
     if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
       return res
         .status(401)
-        .json('Sorry TWAT! Wrong username or password. Try again!');
+        .json("Sorry TWAT! Wrong username or password. Try again!");
     }
 
     if (req.session.user) {
-      console.log('req session found');
+      console.log("req session found");
       console.log(req.session.user);
       return res
         .status(409)
         .json(
-          'You are already logged in. Sign out if you want to switch account'
+          "You are already logged in. Sign out if you want to switch account"
         );
     }
 
@@ -114,7 +116,7 @@ router.post('/login', async (req, res) => {
 
 /** ---- SIGN OUT ----- */
 
-router.delete('/logout', (req, res) => {
+router.delete("/logout", (req, res) => {
   console.log(req.session);
   try {
     if (!req.session.user) {
@@ -123,7 +125,7 @@ router.delete('/logout', (req, res) => {
         .json("Hey dummy! You can't log out when you are not logged in...");
     }
     req.session = null;
-    res.json('You are now logged out!');
+    res.json("You are now logged out!");
   } catch (err) {
     res.status(400).json(err);
   }
