@@ -65,20 +65,16 @@ router.put('/wallposts/:id', async (req, res) => {
   const { id } = req.params;
   const currentPost = await wallPostModel.findById(id);
   const loggedInUser = req.session.user;
-  console.log('in put wallpost')
 
   try {
-    console.log('in try')
     if (!loggedInUser) {
       return res.status(403).json('Nooooo stop!! You have to sign in first...stupid');
     } else if (!currentPost) {
       return res.status(404).json('no post found');
     }
-    console.log(currentPost.username)
-    console.log(req.session.user.username)
+
 
     if (currentPost.username === req.session.user.username) {
-      console.log('currentpost username stämmmer med req session')
       const wallPost = await wallPostModel.findByIdAndUpdate(id, req.body, {
         useFindAndModify: false,
       });
