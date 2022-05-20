@@ -52,6 +52,7 @@ const UserProvider = (props) => {
   const logIn = async (username: string, password: string) => {
     const user = { username, password };
     let response = await makeReq('/login', 'POST', user);
+    alert(response);
     fetchLoggedInUser();
     navigate('/');
   };
