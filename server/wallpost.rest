@@ -10,14 +10,14 @@ Content-Type: application/json
     "body": "Lololllllol"
 }
 
-### PUT STILL NOT UPDATING CORRECTLY
+### 
 
 
 PUT http://localhost:3001/wallposts/62824fc9d2611d3726e061d8
 Content-Type: application/json
 
 {
-    "body": "Hej hopp gummisnopp"
+    "body": "Hej hopp gummi"
 }
 
 ###

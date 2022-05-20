@@ -28,31 +28,12 @@ const UserProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<string>();
   const navigate = useNavigate();
-  const location = useLocation();
-
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     localStorage.setItem('user', currentUser);
-  //     setIsLoggedIn(true);
-  //   } else {
-  //     console.log('no found users');
-  //   }
-  // });
 
   useEffect(() => {
-    console.log('ineffect fetch logged in user');
+    console.log('in effect fetch logged in user');
     fetchLoggedInUser();
   }, []);
 
-  // useEffect(() => {
-  //   const found = localStorage.getItem('user');
-  //   if (found) {
-  //     setCurrentUser(found);
-  //     setIsLoggedIn(true);
-  //   } else {
-  //     console.log('not found');
-  //   }
-  // }, [window.onload]);
 
   const fetchLoggedInUser = async () => {
     console.log(currentUser);

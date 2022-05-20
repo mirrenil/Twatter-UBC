@@ -30,11 +30,6 @@ const LogIn = ({ onClose }: Props) => {
 
   return (
     <div>
-      {/* {!currentUser ? (
-        <LogInForm submitForm={submitForm}/>
-      ) : (
-        <SignedInSuccess />
-      )}  */}
       <LogInForm submitForm={submitForm} />
     </div>
   );
