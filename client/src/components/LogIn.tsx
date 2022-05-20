@@ -12,17 +12,12 @@ const LogIn = ({ onClose }: Props) => {
   const [formIsSubmitted, setFormIsSubmitted] = useState<Boolean>(false);
   const { currentUser, isLoggedIn, fetchLoggedInUser } = useUserContext();
   const { dataIsCorrect } = useSignIn();
- 
-  console.log(isLoggedIn)
-  console.log('data: ' + dataIsCorrect);
-  console.log(currentUser);
 
   useEffect(() => {
-    console.log(currentUser)
     if (currentUser) {
-        onClose(true);
+      onClose(true);
     }
-  }, );
+  });
 
   const submitForm = () => {
     setFormIsSubmitted(true);
@@ -30,11 +25,6 @@ const LogIn = ({ onClose }: Props) => {
 
   return (
     <div>
-      {/* {!currentUser ? (
-        <LogInForm submitForm={submitForm}/>
-      ) : (
-        <SignedInSuccess />
-      )}  */}
       <LogInForm submitForm={submitForm} />
     </div>
   );
