@@ -1,6 +1,6 @@
 
 ### FIND ONE USER
-GET http://localhost:3001/users/Lin
+GET http://localhost:3001/users/Adam
 
 
 ### FIND ALL USERS BELOW
@@ -14,7 +14,7 @@ POST http://localhost:3001/users/register
 Content-Type: application/json
     
 {
-    "username": "Lin",
+    "username": "Adam",
     "password": "123",
     "email": "lars@myspace.com"
 }
@@ -26,8 +26,8 @@ POST http://localhost:3001/login
 Content-Type: application/json
     
 {
-    "username": "Linlin",
-    "password": "linlin"
+    "username": "Adam",
+    "password": "123"
 }
 
 ###

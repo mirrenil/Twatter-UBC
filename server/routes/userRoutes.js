@@ -1,9 +1,6 @@
 import userModel from './../models/user.model.js';
 import express from 'express';
 import bcrypt from 'bcrypt';
-import cookieSession from 'cookie-session';
-import { v4 as uuid } from 'uuid';
-
 export const router = express.Router();
 router.use(express.json());
 
@@ -30,12 +27,14 @@ router.get('/users/:username', async (req, res) => {
   const { username } = req.params;
   console.log('username: ' + username);
 
-  const user = await userModel.find({username});
-  console.log(user);
-  if (user.length < 1)
-    return res.status(400).json('User with this username does not exist');
-
   try {
+    const user = await userModel.find({ username });
+    console.log(user);
+
+    if (user.length < 1) {
+      return res.status(400).json('User with this username does not exist');
+    }
+
     res.json(user);
   } catch (err) {
     console.log(err);
@@ -46,10 +45,10 @@ router.get('/users/:username', async (req, res) => {
 /**------cookiesession------- */
 router.get('/login', (req, res) => {
   console.log('in cookiesession');
-  console.log(req.session.user)
-  
-  if(!req.session.user) {
-    return res.status(400).json('no user is logged in')
+  console.log(req.session.user);
+
+  if (!req.session.user) {
+    return res.status(400).json('no user is logged in');
   }
   // console.log(req.session.user)
   res.status(200).json(req.session.user);
@@ -58,7 +57,6 @@ router.get('/login', (req, res) => {
 /** ----POST----- */
 
 /** ----CREATE A NEW TWAT---- */
-
 router.post('/users/register', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -83,21 +81,32 @@ router.post('/users/register', async (req, res) => {
 /** ----LOG IN---- */
 
 router.post('/login', async (req, res) => {
-  const user = await userModel.findOne({ username: req.body.username });
-  if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
-    return res
-      .status(401)
-      .json('Sorry TWAT! Wrong username or password. Try again!');
-  }
-  if (req.session.id) {
-    return res.status(409).json('Idiot! You are already signed in');
-  }
+  try {
+    const user = await userModel.findOne({ username: req.body.username });
+    console.log('FOUND USER: ' + user);
 
-  delete user.password;
-  req.session.user = user;
-  console.log(req.session.user);
-  res.json(req.session.user);
+    if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
+      return res
+        .status(401)
+        .json('Sorry TWAT! Wrong username or password. Try again!');
+    }
 
+    if (req.session.user) {
+      console.log('req session found');
+      console.log(req.session.user);
+      return res
+        .status(409)
+        .json(
+          'You are already logged in. Sign out if you want to switch account'
+        );
+    }
+
+    delete user.password;
+    req.session.user = user;
+    res.json(req.session.user);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
 /** ---- PUT ----- */
 /** ---- UPDATE ----- */
@@ -146,14 +155,18 @@ router.post('/login', async (req, res) => {
 /** ---- SIGN OUT ----- */
 
 router.delete('/logout', (req, res) => {
-  if (!req.session.user)
-    return res
-      .status(401)
-      .json("Hey dummy! You can't log out when you are not logged in...");
-  req.session = null;
-  console.log('logged out');
   console.log(req.session);
-  res.json(req.session);
+  try {
+    if (!req.session.user) {
+      return res
+        .status(401)
+        .json("Hey dummy! You can't log out when you are not logged in...");
+    }
+    req.session = null;
+    res.json('You are now logged out!');
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
 
 // router.get('/account/login', (req, res) => {

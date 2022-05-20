@@ -79,7 +79,7 @@ router.put('/wallposts/:id', async (req, res) => {
       res.json({
         old: wallPost,
         new: req.body,
-      });
+      }).status(200);
     } catch (err) {
       return res.status(400).json('An error occured');
     }
