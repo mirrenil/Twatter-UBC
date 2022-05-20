@@ -98,7 +98,9 @@ router.post("/login", async (req, res) => {
 
     delete user.password;
     req.session.user = user;
+    console.log(req.session.user);
     res.json(req.session.user);
+
   } catch (err) {
     res.status(400).json(err);
   }
