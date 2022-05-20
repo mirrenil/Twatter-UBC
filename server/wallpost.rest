@@ -1,19 +1,23 @@
 
 GET http://localhost:3001/wallposts
 
+###
+
+GET http://localhost:3001/wallpost/62864d038b12c70077c77a4b
+
 ### POST
 
 POST http://localhost:3001/wallposts/newpost
 Content-Type: application/json
 
 {
-    "body": "Lololllllol"
+    "body": "Lodl"
 }
 
 ### 
 
 
-PUT http://localhost:3001/wallposts/62824fc9d2611d3726e061d8
+PUT http://localhost:3001/wallposts/6287a9db44bc8532862ea061
 Content-Type: application/json
 
 {
@@ -23,5 +27,5 @@ Content-Type: application/json
 ###
 
 
-DELETE http://localhost:3001/wallposts/62825b15cb51294b8b2de4a3
+DELETE http://localhost:3001/wallposts/6287a99b48bfce82548a38b4
 
